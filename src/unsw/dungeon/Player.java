@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.List;
+
 /**
  * The player entity
  * @author Robert Clifton-Everest
@@ -20,11 +22,12 @@ public class Player extends Entity {
     }
 
     public boolean canMove(int x, int y) {
-    	for (Entity e : dungeon.getEntities()) {
+    	List<Entity> el = dungeon.getEntities();
+    	for (Entity e : el) {
     		if (e.getClass().getName() == "Wall" && x == e.getX() && y == e.getY()) {
     			return false;
     		}
-    	}  	
+    	}
     	return true;
     }
     
@@ -37,8 +40,11 @@ public class Player extends Entity {
     }
 
     public void moveDown() {
-        if (getY() < dungeon.getHeight() - 1)
-            y().set(getY() + 1);
+    	if (canMove(getX(), getY() + 1)) {
+    		if (getY() < dungeon.getHeight() - 1) {
+    			y().set(getY() + 1);
+    		}
+    	}
     }
 
     public void moveLeft() {
@@ -50,7 +56,10 @@ public class Player extends Entity {
     }
 
     public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1)
-            x().set(getX() + 1);
+    	if (canMove(getX() + 1, getY())) {
+    		if (getX() < dungeon.getWidth() - 1) {
+    			x().set(getX() + 1);
+    		}
+    	}
     }
 }
