@@ -4,62 +4,101 @@ import java.util.List;
 
 /**
  * The player entity
+ * 
  * @author Robert Clifton-Everest
  *
  */
 public class Player extends Entity {
 
-    private Dungeon dungeon;
+	private Dungeon dungeon;
 
-    /**
-     * Create a player positioned in square (x,y)
-     * @param x
-     * @param y
-     */
-    public Player(Dungeon dungeon, int x, int y) {
-        super(x, y);
-        this.dungeon = dungeon;
-    }
+	/**
+	 * Create a player positioned in square (x,y)
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public Player(Dungeon dungeon, int x, int y) {
+		super(x, y);
+		this.dungeon = dungeon;
+	}
 
-    public boolean canMove(int x, int y) {
-    	List<Entity> el = dungeon.getEntities();
-    	for (Entity e : el) {
-    		if (e instanceof Wall && x == e.getX() && y == e.getY()) {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-    
-    public void moveUp() {
-    	if (canMove(getX(), getY() - 1)) {
-    		if (getY() > 0) {
-    			y().set(getY() - 1);
-    		}
-    	}
-    }
+	public boolean playerCanMove(int x, int y) {
+		List<Entity> el = dungeon.getEntities();
+		for (Entity e : el) {
+			if ((e instanceof Wall || e instanceof Boulder) && x == e.getX() && y == e.getY()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public void moveDown() {
-    	if (canMove(getX(), getY() + 1)) {
-    		if (getY() < dungeon.getHeight() - 1) {
-    			y().set(getY() + 1);
-    		}
-    	}
-    }
+	public boolean boulderCanMove(int x, int y) {
+		List<Entity> el = dungeon.getEntities();
+		for (Entity e : el) {
+			if ((e instanceof Wall || e instanceof Boulder) && x == e.getX() && y == e.getY()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public void moveLeft() {
-    	if (canMove(getX() - 1, getY())) {
-   		 	if (getX() > 0) {
-   		 		x().set(getX() - 1);
-   		 	}
-    	}
-    }
+	public Boulder hasBoulder(int x, int y) {
+		Boulder boulder = new Boulder(-1, -1);
+		List<Entity> el = dungeon.getEntities();
+		for (Entity e : el) {
+			if (e instanceof Boulder && x == e.getX() && y == e.getY()) {
+				return (Boulder) e;
+			}
+		}
+		return boulder;
+	}
 
-    public void moveRight() {
-    	if (canMove(getX() + 1, getY())) {
-    		if (getX() < dungeon.getWidth() - 1) {
-    			x().set(getX() + 1);
-    		}
-    	}
-    }
+	public void moveUp() {
+		if (getX() > 0) {
+			Boulder b = hasBoulder(getX(), getY() - 1);
+			if (playerCanMove(getX(), getY() - 1)) {
+				y().set(getY() - 1);
+			} else if ((b.getY() != -1 && boulderCanMove(getX(), getY() - 2))) {
+				b.y().set(getY() - 2);
+				y().set(getY() - 1);
+			}
+		}
+	}
+
+	public void moveDown() {
+		if (getX() < dungeon.getWidth() - 1) {
+			Boulder b = hasBoulder(getX(), getY() + 1);
+			if (playerCanMove(getX(), getY() + 1)) {
+				y().set(getY() + 1);
+			} else if (b.getY() != -1 && boulderCanMove(getX(), getY() + 2)) {
+				b.y().set(getY() + 2);
+				y().set(getY() + 1);
+			}
+		}
+	}
+
+	public void moveLeft() {
+		if (getX() > 0) {
+			Boulder b = hasBoulder(getX() - 1, getY());
+			if (playerCanMove(getX() - 1, getY())) {
+				x().set(getX() - 1);
+			} else if ((b.getX() != -1 && boulderCanMove(getX() - 2, getY()))) {
+				b.x().set(getX() - 2);
+				x().set(getX() - 1);
+			}
+		}
+	}
+
+	public void moveRight() {
+		if (getX() < dungeon.getWidth() - 1) {
+			Boulder b = hasBoulder(getX() + 1, getY());
+			if (playerCanMove(getX() + 1, getY())) {
+				x().set(getX() + 1);
+			} else if (b.getX() != -1 && boulderCanMove(getX() + 2, getY())) {
+				b.x().set(getX() + 2);
+				x().set(getX() + 1);
+			}
+		}
+	}
 }
