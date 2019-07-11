@@ -24,7 +24,7 @@ public class Player extends Entity {
     public boolean canMove(int x, int y) {
     	List<Entity> el = dungeon.getEntities();
     	for (Entity e : el) {
-    		if (e.getClass().getName() == "Wall" && x == e.getX() && y == e.getY()) {
+    		if (e instanceof Wall && x == e.getX() && y == e.getY()) {
     			return false;
     		}
     	}
