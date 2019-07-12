@@ -70,6 +70,28 @@ public abstract class DungeonLoader {
             onLoad(switc);
             entity = switc;
             break;
+        case "treature":
+            Treasure treasure = new Treasure(x, y);
+            onLoad(treasure);
+            entity = treasure;
+            break;
+        case "sword":
+            Sword sword = new Sword(x, y);
+            onLoad(sword);
+            entity = sword;
+            break;
+        case "exit":
+            Exit exit = new Exit(x, y);
+            onLoad(exit);
+            entity = exit;
+            break;
+        case "enemy":
+            Enemy enemy = new Enemy(x, y);
+            onLoad(enemy);
+            entity = enemy;
+            break;
+            
+            
         // TODO Handle other possible entities
         }
         dungeon.addEntity(entity);
@@ -82,6 +104,14 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Boulder boulder);
     
     public abstract void onLoad(Switch switc);
+    
+    public abstract void onLoad(Treasure treasure);
+    
+    public abstract void onLoad(Sword sword);
+    
+    public abstract void onLoad(Exit exit);
+    
+    public abstract void onLoad(Enemy enemy);
 
     // TODO Create additional abstract methods for the other entities
 
