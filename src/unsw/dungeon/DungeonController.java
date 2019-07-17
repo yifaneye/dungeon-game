@@ -33,7 +33,7 @@ public class DungeonController {
 
     @FXML
     public void initialize() {
-        Image ground = new Image("/dirt_0_new.png");
+        Image ground = new Image("ground.png");
 
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
@@ -61,6 +61,9 @@ public class DungeonController {
             break;
         case RIGHT:
             player.moveRight();
+            break;
+        case SPACE:
+            player.collect();;
             break;
         default:
             break;

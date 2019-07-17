@@ -60,17 +60,18 @@ public abstract class DungeonLoader {
             onLoad(wall);
             entity = wall;
             break;
+        // TODO Handle other possible entities
         case "boulder":
             Boulder boulder = new Boulder(x, y);
             onLoad(boulder);
             entity = boulder;
             break;
         case "switch":
-            Switch switc = new Switch(dungeon, x, y);
-            onLoad(switc);
-            entity = switc;
+            Switch switch1 = new Switch(dungeon, x, y);
+            onLoad(switch1);
+            entity = switch1;
             break;
-        case "treature":
+        case "treasure":
             Treasure treasure = new Treasure(x, y);
             onLoad(treasure);
             entity = treasure;
@@ -90,9 +91,16 @@ public abstract class DungeonLoader {
             onLoad(enemy);
             entity = enemy;
             break;
-            
-            
-        // TODO Handle other possible entities
+        case "bomb":
+            Bomb bomb = new Bomb(x, y);
+            onLoad(bomb);
+            entity = bomb;
+            break;
+        case "invincibility":
+        	Invincibility invincibility = new Invincibility(x, y);
+            onLoad(invincibility);
+            entity = invincibility;
+            break;
         }
         dungeon.addEntity(entity);
     }
@@ -103,7 +111,7 @@ public abstract class DungeonLoader {
     
     public abstract void onLoad(Boulder boulder);
     
-    public abstract void onLoad(Switch switc);
+    public abstract void onLoad(Switch switch1);
     
     public abstract void onLoad(Treasure treasure);
     
@@ -112,6 +120,10 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Exit exit);
     
     public abstract void onLoad(Enemy enemy);
+    
+    public abstract void onLoad(Invincibility invincibility);
+    
+    public abstract void onLoad(Bomb bomb);
 
     // TODO Create additional abstract methods for the other entities
 

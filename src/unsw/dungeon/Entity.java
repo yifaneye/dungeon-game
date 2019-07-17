@@ -19,16 +19,20 @@ public class Entity {
      * @param x
      * @param y
      */
-    public Entity(int x, int y) {
+    public Entity (int x, int y) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
     }
-
+    
+    public boolean ableToMove () {
+    	return false;
+    }
+    
     public IntegerProperty x() {
         return x;
     }
-
-    public IntegerProperty y() {
+    
+	public IntegerProperty y() {
         return y;
     }
 
@@ -39,4 +43,5 @@ public class Entity {
     public int getX() {
         return x().get();
     }
+    
 }

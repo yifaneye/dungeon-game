@@ -30,19 +30,23 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image swordImage;
     private Image exitImage;
     private Image enemyImage;
+    private Image invincibilityImage;
+    private Image bombImage;
     
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
         super(filename);
         entities = new ArrayList<>();
-        playerImage = new Image("/human_new.png");
-        wallImage = new Image("/brick_brown_0.png");
-        boulderImage = new Image("/boulder.png");
-        switchImage = new Image("pressure_plate.png");
-        treasureImage = new Image("gold_pile.png");
-        swordImage = new Image("greatsword_1_new.png");
+        playerImage = new Image("player.png");
+        wallImage = new Image("wall.png");
+        boulderImage = new Image("boulder.png");
+        switchImage = new Image("switch.png");
+        treasureImage = new Image("treasure.png");
+        swordImage = new Image("sword.png");
         exitImage = new Image("exit.png");
-        enemyImage = new Image("deep_elf_master_archer.png");
+        enemyImage = new Image("enemy.png");
+        invincibilityImage = new Image("invincibility.png");
+        bombImage = new Image("bomb_unlit.png");
     }
 
     @Override
@@ -91,6 +95,18 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
         addEntity(enemy, view);
+    }
+    
+    @Override
+    public void onLoad(Invincibility invincibility) {
+        ImageView view = new ImageView(invincibilityImage);
+        addEntity(invincibility, view);
+    }
+    
+    @Override
+    public void onLoad(Bomb bomb) {
+        ImageView view = new ImageView(bombImage);
+        addEntity(bomb, view);
     }
 
     private void addEntity(Entity entity, ImageView view) {

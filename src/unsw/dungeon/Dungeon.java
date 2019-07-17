@@ -51,5 +51,20 @@ public class Dungeon {
 	public List<Entity> getEntities() {
 		return entities;
 	}
+	
+    public void removeEntity(Entity entity) {
+        entities.remove(entity);
+    }
+    
+    public Entity findEntity(int x, int y) {
+		Entity en = new Entity(-1,-1);
+    	for (Entity e : entities) {
+			if (x == e.getX() && y == e.getY()) {
+				en = e;
+			}
+		}
+    	this.removeEntity(en);
+    	return en;
+    }
 
 }

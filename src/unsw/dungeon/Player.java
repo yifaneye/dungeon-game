@@ -23,6 +23,17 @@ public class Player extends Entity {
 		this.dungeon = dungeon;
 	}
 
+	public Boulder hasBoulder(int x, int y) {
+		Boulder boulder = new Boulder(-1, -1);
+		List<Entity> el = dungeon.getEntities();
+		for (Entity e : el) {
+			if (e instanceof Boulder && x == e.getX() && y == e.getY()) {
+				return (Boulder) e;
+			}
+		}
+		return boulder;
+	}
+	
 	public boolean playerCanMove(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
@@ -41,17 +52,6 @@ public class Player extends Entity {
 			}
 		}
 		return true;
-	}
-
-	public Boulder hasBoulder(int x, int y) {
-		Boulder boulder = new Boulder(-1, -1);
-		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
-			if (e instanceof Boulder && x == e.getX() && y == e.getY()) {
-				return (Boulder) e;
-			}
-		}
-		return boulder;
 	}
 
 	public void moveUp() {
@@ -101,4 +101,19 @@ public class Player extends Entity {
 			}
 		}
 	}
+	
+	public void collect() {
+		Entity en = dungeon.findEntity(getX(), getY());
+		System.out.print(en.getClass().getName());
+		System.out.print("\n");
+		if (!(en instanceof Player)) {
+			System.out.print(en.ableToMove());
+			if (en.ableToMove() == true) {
+				//dungeon.removeEntity(en); 
+				en.x().set(getX()+17);
+			}
+		}
+		
+	}
+	
 }
