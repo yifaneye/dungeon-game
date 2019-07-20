@@ -49,6 +49,7 @@ public abstract class DungeonLoader {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
+        int id;
 
         Entity entity = null;
         switch (type) {
@@ -107,6 +108,18 @@ public abstract class DungeonLoader {
             onLoad(invincibility);
             entity = invincibility;
             break;
+        case "key":
+        	id = json.getInt("id");
+        	Key key = new Key(x, y, id);
+            onLoad(key);
+            entity = key;
+            break;
+        case "door":
+            id = json.getInt("id");
+        	Door door = new Door(x, y, id);
+            onLoad(door);
+            entity = door;
+            break;
         }
         dungeon.addEntity(entity);
     }
@@ -131,6 +144,10 @@ public abstract class DungeonLoader {
     
     public abstract void onLoad(Bomb bomb);
 
+    public abstract void onLoad(Key key);
+    
+    public abstract void onLoad(Door door);
+    
     // TODO Create additional abstract methods for the other entities
 
 }
