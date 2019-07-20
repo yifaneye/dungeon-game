@@ -13,30 +13,38 @@ public class Goal {
     public int totalTreasure;
     
 	public Goal() {
-		this.exitGoal = true;
-		this.enemiesGoal = true;
-		this.bouldersGoal = true;
-		this.treasureGoal = true;		
+		this.exitGoal = false;
+		this.enemiesGoal = false;
+		this.bouldersGoal = false;
+		this.treasureGoal = false;		
 		this.reachExit = false;
 		this.totalSwitch = 0;
 		this.totalEnemies = 0;
 		this.totalTreasure = 0;
 	}
 	
-	public void setExitGoal(boolean exitGoal) {
-		this.exitGoal = exitGoal;
+	public int getTotalSwitch() {
+		return totalSwitch;
 	}
 
-	public void setEnemiesGoal(boolean enemiesGoal) {
-		this.enemiesGoal = enemiesGoal;
+	public void setTotalSwitch(int totalSwitch) {
+		this.totalSwitch = totalSwitch;
 	}
 
-	public void setBouldersGoal(boolean bouldersGoal) {
-		this.bouldersGoal = bouldersGoal;
+	public int getTotalEnemies() {
+		return totalEnemies;
 	}
 
-	public void setTreasureGoal(boolean treasureGoal) {
-		this.treasureGoal = treasureGoal;
+	public void setTotalEnemies(int totalEnemies) {
+		this.totalEnemies = totalEnemies;
+	}
+
+	public int getTotalTreasure() {
+		return totalTreasure;
+	}
+
+	public void setTotalTreasure(int totalTreasure) {
+		this.totalTreasure = totalTreasure;
 	}
 
 	public boolean checkGoal() {

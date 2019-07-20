@@ -72,11 +72,13 @@ public abstract class DungeonLoader {
             break;
         case "switch":
             Switch switch1 = new Switch(dungeon, x, y);
+            dungeon.setTotalSwitch(dungeon.getTotalSwitch() + 1);
             onLoad(switch1);
             entity = switch1;
             break;
         case "treasure":
             Treasure treasure = new Treasure(x, y);
+            dungeon.setTotalTreasure(dungeon.getTotalTreasure() + 1);
             onLoad(treasure);
             entity = treasure;
             break;
@@ -91,11 +93,11 @@ public abstract class DungeonLoader {
             entity = exit;
             break;
         case "enemy":
-            Enemy enemy = new Enemy(x, y, dungeon.getPlayersubject());
+            Enemy enemy = new Enemy(dungeon,x, y, dungeon.getPlayersubject());
             onLoad(enemy);
             Timer timer = new Timer();
-        	timer.schedule(enemy.getEnemyMove(), 0, 200);
-            
+        	timer.schedule(enemy.getEnemyMove(), 0, 800);
+            dungeon.setTotalEnemies(dungeon.getTotalEnemies() + 1);
             entity = enemy;
             break;
         case "bomb":

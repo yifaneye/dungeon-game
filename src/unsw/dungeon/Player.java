@@ -69,6 +69,11 @@ public class Player extends Entity {
 	}
 
 	public void moveDown() {
+		System.out.println("Switch " + dungeon.getTotalSwitch() +"\n");
+		System.out.println("Enemy " + dungeon.getTotalEnemies() +"\n");
+		System.out.println("Tresure " + dungeon.getTotalTreasure() +"\n");
+		
+		
 		if (getX() < dungeon.getWidth() - 1) {
 			Boulder b = hasBoulder(getX(), getY() + 1);
 			if (playerCanMove(getX(), getY() + 1)) {
@@ -126,7 +131,7 @@ public class Player extends Entity {
 			System.out.print(en.isReachable());
 			if (en.isReachable()) {
 				if (en instanceof Exit) {
-					goal.setExitGoal(true);
+					//goal.setExitGoal(true);
 					boolean ret = goal.checkGoal();
 					if (ret) System.out.print("you win");
 					else System.out.print("you lose");

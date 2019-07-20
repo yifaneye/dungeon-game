@@ -21,6 +21,7 @@ public class Dungeon {
     private List<Entity> entities;
     private Player player;
     private PlayerSubject playersubject;
+    private Goal goal;
 
     public Dungeon(int width, int height) {
         this.width = width;
@@ -28,9 +29,51 @@ public class Dungeon {
         this.entities = new ArrayList<>();
         this.player = null;
         this.playersubject = new PlayerSubject();
-        
+        this.goal = new Goal();
+    }
+    
+    public Entity findEntity(int x, int y) {
+		Entity en = null;
+    	for (Entity e : entities) {
+			if (x == e.getX() && y == e.getY()) {
+				en = e;
+			}
+		}
+    	return en;
+    }
+    
+    public void updatePlayerSubject() {
+    	System.out.println("Update\n");
+    	playersubject.setXY(player.getX(), player.getY());
+    }
+    
+    //getter&&setter 
+    public int getTotalSwitch() {
+    	return goal.getTotalSwitch();
     }
 
+    public void setTotalSwitch(int totalSwitch) {
+        this.goal.setTotalSwitch(totalSwitch);
+    }
+    
+    public int getTotalEnemies() {
+    	return goal.getTotalEnemies();
+    }
+
+    public void setTotalEnemies(int totalEnemies) {
+        this.goal.setTotalEnemies(totalEnemies);
+    }
+    
+    public int getTotalTreasure() {
+    	return goal.getTotalTreasure();
+    }
+
+    public void setTotalTreasure(int totalTreasure) {
+        this.goal.setTotalTreasure(totalTreasure);
+    }
+    
+    
+    
     public int getWidth() {
         return width;
     }
@@ -51,10 +94,6 @@ public class Dungeon {
         entities.add(entity);
     }
 
-	public PlayerSubject getPlayersubject() {
-		return playersubject;
-	}
-
 	public List<Entity> getEntities() {
 		return entities;
 	}
@@ -63,19 +102,8 @@ public class Dungeon {
         entities.remove(entity);
     }
     
-    public void updatePlayerSubject() {
-    	System.out.println("Update\n");
-    	playersubject.setXY(player.getX(), player.getY());
-    }
-    
-    public Entity findEntity(int x, int y) {
-		Entity en = null;
-    	for (Entity e : entities) {
-			if (x == e.getX() && y == e.getY()) {
-				en = e;
-			}
-		}
-    	return en;
-    }
+    public PlayerSubject getPlayersubject() {
+		return playersubject;
+	}
 
 }
