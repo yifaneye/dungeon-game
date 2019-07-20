@@ -19,12 +19,17 @@ public class Entity {
      * @param x
      * @param y
      */
+    
     public Entity (int x, int y) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
     }
     
-    public boolean isCollectable () {
+    public boolean isCollectable() {
+    	return false;
+    }
+    
+    public boolean isReachable() {
     	return false;
     }
     

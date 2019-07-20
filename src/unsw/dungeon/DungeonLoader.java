@@ -19,7 +19,9 @@ import org.json.JSONTokener;
 public abstract class DungeonLoader {
 
     private JSONObject json;
-
+    
+    Goal goal = new Goal();
+    
     public DungeonLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
     }
@@ -35,9 +37,16 @@ public abstract class DungeonLoader {
         Dungeon dungeon = new Dungeon(width, height);
 
         JSONArray jsonEntities = json.getJSONArray("entities");
-
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
+        }
+        JSONObject jsonGoalCondition = json.getJSONObject("goal-condition");
+        String jsonGoal = jsonGoalCondition.getString("goal");
+        switch (jsonGoal) {
+        case "exit": goal.setExitGoal(false);
+        case "enemies": goal.setEnemiesGoal(false);
+        case "boulders": goal.setBouldersGoal(false);
+        case "treasure": goal.setTreasureGoal(false);
         }
         return dungeon;
     }
@@ -70,11 +79,13 @@ public abstract class DungeonLoader {
             Switch switch1 = new Switch(dungeon, x, y);
             onLoad(switch1);
             entity = switch1;
+            goal.totalSwitch++;
             break;
         case "treasure":
             Treasure treasure = new Treasure(x, y);
             onLoad(treasure);
             entity = treasure;
+            goal.totalTreasure++;
             break;
         case "sword":
             Sword sword = new Sword(x, y);
@@ -90,6 +101,7 @@ public abstract class DungeonLoader {
             Enemy enemy = new Enemy(x, y);
             onLoad(enemy);
             entity = enemy;
+            goal.totalTreasure++;
             break;
         case "bomb":
             Bomb bomb = new Bomb(x, y);
@@ -109,6 +121,7 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Wall wall);
     
+    // TODO Create additional abstract methods for the other entities  
     public abstract void onLoad(Boulder boulder);
     
     public abstract void onLoad(Switch switch1);
@@ -124,7 +137,5 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Invincibility invincibility);
     
     public abstract void onLoad(Bomb bomb);
-
-    // TODO Create additional abstract methods for the other entities
 
 }
