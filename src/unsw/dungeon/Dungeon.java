@@ -72,8 +72,6 @@ public class Dungeon {
         this.goal.setTotalTreasure(totalTreasure);
     }
     
-    
-    
     public int getWidth() {
         return width;
     }

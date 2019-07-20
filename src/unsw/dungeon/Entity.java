@@ -32,6 +32,10 @@ public class Entity {
     	return false;
     }
     
+    public boolean isUnarmedPlayer() {
+    	return false;
+    }
+    
     public IntegerProperty x() {
         return x;
     }
