@@ -16,6 +16,7 @@ public class EnemyMove extends TimerTask {
 
 	@Override
 	public void run() {
+		enemy.kill();
 		int diff_x = enemy.getX() - enemy.getObserver().x;
 		int diff_y = enemy.getY() - enemy.getObserver().y;
 

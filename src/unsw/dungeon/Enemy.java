@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.List;
+
 public class Enemy extends Entity {
 	
 	public Dungeon dungeon;
@@ -21,5 +23,20 @@ public class Enemy extends Entity {
 		return enemyMove;
 	}
 	
+	public void kill() {
+		List<Entity> el = dungeon.getEntities();
+		for (Entity e : el) {
+			if (e instanceof Player && getX() == e.getX() && getY() == e.getY()) {
+				if (((Player) e).isUnarmedPlayer()) {
+					System.out.println("--- you lose ---");
+					System.exit(1);
+				} else {
+					x().set(0);
+					dungeon.removeEntity(this);
+					System.out.println("--- you killed the enemy ---");
+				}
+			}
+		}
+	}
     
 }
