@@ -606,6 +606,11 @@
       "x": 8,
       "y": 14,
       "type": "enemy"
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "exit"
     }
   ],
   "goal-condition": {

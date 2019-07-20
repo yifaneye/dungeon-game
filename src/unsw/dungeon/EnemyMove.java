@@ -16,9 +16,9 @@ public class EnemyMove extends TimerTask {
 
 	@Override
 	public void run() {
-		enemy.kill();
 		int diff_x = enemy.getX() - enemy.getObserver().x;
 		int diff_y = enemy.getY() - enemy.getObserver().y;
+
 		if (Math.abs(diff_x) > Math.abs(diff_y)) { // move along x
 			if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() - 1);
@@ -40,7 +40,7 @@ public class EnemyMove extends TimerTask {
 				enemy.x().set(enemy.getX() + 1);
 			}
 		}
-		//enemy.kill();
+
 	}
 
 	public boolean enemyCanMove(int x, int y) {
@@ -52,5 +52,5 @@ public class EnemyMove extends TimerTask {
 		}
 		return true;
 	}
-	
+
 }
