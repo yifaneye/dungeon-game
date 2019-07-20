@@ -24,7 +24,7 @@ public class Entity {
         this.y = new SimpleIntegerProperty(y);
     }
     
-    public boolean ableToMove () {
+    public boolean isCollectable () {
     	return false;
     }
     

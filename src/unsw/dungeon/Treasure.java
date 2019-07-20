@@ -6,7 +6,7 @@ public class Treasure extends Entity {
         super(x, y);
     }
     
-    public boolean ableToMove () {
+    public boolean isCollectable() {
     	return true;
     }
 	

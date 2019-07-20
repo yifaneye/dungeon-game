@@ -6,9 +6,8 @@ public class Invincibility extends Entity {
 	    super(x, y);
 	}
 	
-	public char collect(int x, int y) {
-		if (x == this.getX() && y == this.getY()) return 'i';
-		else return '-';
-	}
-
+    public boolean isCollectable() {
+    	return true;
+    }
+    
 }

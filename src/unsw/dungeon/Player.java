@@ -103,17 +103,20 @@ public class Player extends Entity {
 	}
 	
 	public void collect() {
+		int count = 0;
 		Entity en = dungeon.findEntity(getX(), getY());
 		System.out.print(en.getClass().getName());
 		System.out.print("\n");
 		if (!(en instanceof Player)) {
-			System.out.print(en.ableToMove());
-			if (en.ableToMove() == true) {
+			System.out.print(en.isCollectable());
+			if (en.isCollectable()) {
 				//dungeon.removeEntity(en); 
-				en.x().set(getX()+17);
+				en.x().set(count);
+				count++;
+				en.y().set(0);
+				
 			}
 		}
-		
 	}
 	
 }
