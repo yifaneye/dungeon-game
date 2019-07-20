@@ -71,7 +71,7 @@ public abstract class DungeonLoader {
             entity = boulder;
             break;
         case "switch":
-            Switch switch1 = new Switch(x, y);
+            Switch switch1 = new Switch(dungeon, x, y);
             dungeon.setTotalSwitch(dungeon.getTotalSwitch() + 1);
             onLoad(switch1);
             entity = switch1;
