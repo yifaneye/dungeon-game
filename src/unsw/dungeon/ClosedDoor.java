@@ -15,7 +15,7 @@ public class ClosedDoor implements State{
 
 	@Override
 	public boolean open(Player player, Door door) {
-		if (player.getHasKeyID() == door.id) {
+		if (player.hasKeyID == door.id) {
 			door.x().set(door.getX() + player.getDungeon().getWidth());
 			player.getDungeon().removeEntity(door);
 			player.hasKeyID = -1;

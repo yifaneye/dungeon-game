@@ -273,6 +273,16 @@
       "type": "wall"
     },
     {
+      "x": 8,
+      "y": 7,
+      "type": "boulder"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "type": "boulder"
+    },
+    {
       "x": 12,
       "y": 7,
       "type": "wall"
