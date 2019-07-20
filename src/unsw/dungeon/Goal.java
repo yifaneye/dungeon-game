@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Goal {
 	
-    private boolean reachExit;
+	private boolean reachExit;
     private int enemyNumber;
     private int treasureNumber;
     private int totalSwitch;

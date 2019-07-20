@@ -163,9 +163,7 @@ public class Player extends Entity {
 				dungeon.removeEntity(en);
 				hasUnlitBombs++;
 			}
-
 			System.out.print("removed entity with " + dungeon.getEntities().size() + " entites remain\n");
-
 		} else {
 			System.out.print("nothing to collect\n");
 		}
@@ -179,10 +177,8 @@ public class Player extends Entity {
 		if (en instanceof Exit) {
 			dungeon.getGoal().setReachExit(true);
 			boolean ret = dungeon.getGoal().checkGoals();
-			if (ret)
-				System.out.print("--- you win ---");
-			else
-				System.out.print("--- you lose ---");
+			if (ret) System.out.print("--- you win ---");
+			else System.out.print("--- you lose ---");
 			System.exit(0);
 		}
 	}
@@ -201,9 +197,9 @@ public class Player extends Entity {
 				if (((Drop) e).getCountdown() > 0)
 					((Drop) e).setCountdown(((Drop) e).getCountdown() - 1);
 				else {
+					explode(e.getX(), e.getY());
 					explode(e.getX() - 1, e.getY());
 					explode(e.getX() + 1, e.getY());
-					explode(e.getX(), e.getY());
 					explode(e.getX(), e.getY() - 1);
 					explode(e.getX(), e.getY() + 1);
 				}
@@ -213,16 +209,15 @@ public class Player extends Entity {
 
 	public void explode(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
-		if(el.size()>0) {
 		for (Entity e : el) {
-			if ((e instanceof Enemy || e instanceof Boulder) && e.getX() == x && e.getY() == y) {
-				e.x().set(getX() + dungeon.getWidth());
-				dungeon.removeEntity(e);
-			} else if (e instanceof Player && e.getX() == x && e.getY() == y) {
+			if (e instanceof Player && e.getX() == x && e.getY() == y) {
 				System.out.println("--- you lose ---");
 				System.exit(1);
 			}
-		}
+			if ((e instanceof Enemy || e instanceof Boulder) && e.getX() == x && e.getY() == y) {
+				e.x().set(0);
+				dungeon.removeEntity(e);
+			}
 		}
 	}
 

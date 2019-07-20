@@ -16,22 +16,17 @@ public class EnemyMove extends TimerTask {
 
 	@Override
 	public void run() {
-		//reserse movement if has player potion
-		if (enemy.getObserver().hasInvincibility) {
-			enemy.kill();
-			getDirection();
-			
-		}else {
-			enemy.kill();
-			getReverseDirec();
-		}
+		// reverse movement
+		enemy.kill();
+		if (enemy.getObserver().hasInvincibility) getDirection();
+		else getReverseDirec();
 	}
-	
+
 	public void getReverseDirec() {
 		int diff_x = enemy.getX() - enemy.getObserver().x;
 		int diff_y = enemy.getY() - enemy.getObserver().y;
 
-		if (Math.abs(diff_x) > Math.abs(diff_y)) { 
+		if (Math.abs(diff_x) > Math.abs(diff_y)) {
 			if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() - 1);
 			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
@@ -53,35 +48,34 @@ public class EnemyMove extends TimerTask {
 			}
 		}
 	}
-	
-	
+
 	public void getDirection() {
 		int diff_x = enemy.getX() - enemy.getObserver().x;
 		int diff_y = enemy.getY() - enemy.getObserver().y;
 
-		if (Math.abs(diff_x) > Math.abs(diff_y)) { 
-			if (diff_x > 0 && enemyCanMove(enemy.getX() +1, enemy.getY())) {
-				enemy.x().set(enemy.getX() +1 );
-			} else if (diff_x < 0 && enemyCanMove(enemy.getX() -1, enemy.getY())) {
-				enemy.x().set(enemy.getX() -1);
-			} else if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() +1)) {
-				enemy.y().set(enemy.getY() +1);
-			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() -1)) {
-				enemy.y().set(enemy.getY() -1);
+		if (Math.abs(diff_x) > Math.abs(diff_y)) {
+			if (diff_x > 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
+			} else if (diff_x < 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
+			} else if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
+			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
 			}
 		} else {
-			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() +1)) {
-				enemy.y().set(enemy.getY() +1);
-			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() -1)) {
-				enemy.y().set(enemy.getY() -1);
-			} else if (diff_x > 0 && enemyCanMove(enemy.getX() +1, enemy.getY())) {
-				enemy.x().set(enemy.getX() +1);
-			} else if (diff_x < 0 && enemyCanMove(enemy.getX() -1, enemy.getY())) {
-				enemy.x().set(enemy.getX() -1);
+			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
+			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
+			} else if (diff_x > 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
+			} else if (diff_x < 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
 			}
 		}
 	}
-	
+
 	public boolean enemyCanMove(int x, int y) {
 		List<Entity> el = enemy.dungeon.getEntities();
 		for (Entity e : el) {

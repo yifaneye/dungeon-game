@@ -17,93 +17,92 @@ import java.util.List;
  */
 public class Dungeon {
 
-    private int width, height;
-    private List<Entity> entities;
-    private Player player;
-    private PlayerSubject playersubject;
-    private Goal goal;
+	private int width, height;
+	private List<Entity> entities;
+	private Player player;
+	private PlayerSubject playersubject;
+	private Goal goal;
 
-    public Dungeon(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.entities = new ArrayList<>();
-        this.player = null;
-        this.playersubject = new PlayerSubject();
-        this.goal = new Goal(this);
-    }
-    
-    public Entity findEntity(int x, int y) {
+	public Dungeon(int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.entities = new ArrayList<>();
+		this.player = null;
+		this.playersubject = new PlayerSubject();
+		this.goal = new Goal(this);
+	}
+
+	public Entity findEntity(int x, int y) {
 		Entity en = null;
-    	for (Entity e : entities) {
+		for (Entity e : entities) {
 			if (x == e.getX() && y == e.getY()) {
 				en = e;
 			}
 		}
-    	return en;
-    }
-    
-    public void updatePlayerSubject() {
-    	System.out.println("Update\n");
-    	playersubject.setXY(player.getX(), player.getY());
-    	if(player.hasInvincibilityMoves > 0) {
-    		playersubject.setHasInvincibility(true);
-    	}else {
-    		playersubject.setHasInvincibility(false);
-    	}
-    }
-    
-    //getter&&setter 
-    public int getTreasureNumber() {
-    	return goal.getTreasureNumber();
-    }
+		return en;
+	}
 
-    public void setTreasureNumber (int treasureNumber) {
-        this.goal.setTreasureNumber(treasureNumber);
-    }
-    
-    public int getTotalSwitch() {
-    	return goal.getTotalSwitch();
-    }
+	public void updatePlayerSubject() {
+		System.out.println("Update\n");
+		playersubject.setXY(player.getX(), player.getY());
+		if (player.hasInvincibilityMoves > 0) {
+			playersubject.setHasInvincibility(true);
+		} else {
+			playersubject.setHasInvincibility(false);
+		}
+	}
 
-    public void setTotalSwitch(int totalSwitch) {
-        this.goal.setTotalSwitch(totalSwitch);
-    }
-    
-    public int getTotalEnemies() {
-    	return goal.getTotalEnemies();
-    }
+	public int getTreasureNumber() {
+		return goal.getTreasureNumber();
+	}
 
-    public void setTotalEnemies(int totalEnemies) {
-        this.goal.setTotalEnemies(totalEnemies);
-    }
-    
-    public int getTotalTreasure() {
-    	return goal.getTotalTreasure();
-    }
+	public void setTreasureNumber(int treasureNumber) {
+		this.goal.setTreasureNumber(treasureNumber);
+	}
 
-    public void setTotalTreasure(int totalTreasure) {
-        this.goal.setTotalTreasure(totalTreasure);
-    }
-    
-    public int getWidth() {
-        return width;
-    }
+	public int getTotalSwitch() {
+		return goal.getTotalSwitch();
+	}
 
-    public int getHeight() {
-        return height;
-    }
+	public void setTotalSwitch(int totalSwitch) {
+		this.goal.setTotalSwitch(totalSwitch);
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	public int getTotalEnemies() {
+		return goal.getTotalEnemies();
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+	public void setTotalEnemies(int totalEnemies) {
+		this.goal.setTotalEnemies(totalEnemies);
+	}
 
-    public void addEntity(Entity entity) {
-        entities.add(entity);
-    }
+	public int getTotalTreasure() {
+		return goal.getTotalTreasure();
+	}
+
+	public void setTotalTreasure(int totalTreasure) {
+		this.goal.setTotalTreasure(totalTreasure);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public void addEntity(Entity entity) {
+		entities.add(entity);
+	}
 
 	public Goal getGoal() {
 		return goal;
@@ -112,12 +111,12 @@ public class Dungeon {
 	public List<Entity> getEntities() {
 		return entities;
 	}
-	
-    public void removeEntity(Entity entity) {
-        entities.remove(entity);
-    }
-    
-    public PlayerSubject getPlayersubject() {
+
+	public void removeEntity(Entity entity) {
+		entities.remove(entity);
+	}
+
+	public PlayerSubject getPlayersubject() {
 		return playersubject;
 	}
 

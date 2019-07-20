@@ -3,11 +3,11 @@ package unsw.dungeon;
 public class Invincibility extends Entity {
 
 	public Invincibility(int x, int y) {
-	    super(x, y);
+		super(x, y);
 	}
-	
-	public boolean ableToCollect () {
-    	return true;
-    }
+
+	public boolean ableToCollect() {
+		return true;
+	}
 
 }

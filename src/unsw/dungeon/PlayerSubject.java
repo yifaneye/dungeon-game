@@ -2,13 +2,13 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
-public class PlayerSubject implements Subject{
-	
+public class PlayerSubject implements Subject {
+
 	ArrayList<Observer> listObservers = new ArrayList<Observer>();
 	int x = 0;
 	int y = 0;
 	boolean hasInvincibility = false;
-	
+
 	@Override
 	public void attach(Observer o) {
 		// TODO Auto-generated method stub
@@ -44,13 +44,13 @@ public class PlayerSubject implements Subject{
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public void setXY(int x, int y) {
 		this.x = x;
 		this.y = y;
 		notifyobservers();
 	}
-	
+
 	public boolean isHasInvincibility() {
 		return hasInvincibility;
 	}
@@ -59,5 +59,5 @@ public class PlayerSubject implements Subject{
 		this.hasInvincibility = hasInvincibility;
 		notifyobservers();
 	}
-	
+
 }
