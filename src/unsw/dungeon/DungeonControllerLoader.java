@@ -32,7 +32,6 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image enemyImage;
     private Image invincibilityImage;
     private Image bombImage;
-    public int totalTreasure;
     
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -72,14 +71,12 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Switch switc) {
         ImageView view = new ImageView(switchImage);
         addEntity(switc, view);
-        totalTreasure++;
     }
     
     @Override
     public void onLoad(Treasure treasure) {
         ImageView view = new ImageView(treasureImage);
         addEntity(treasure, view);
-        
     }
     
     @Override
@@ -98,6 +95,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
         addEntity(enemy, view);
+        
     }
     
     @Override

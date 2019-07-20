@@ -52,21 +52,22 @@ public class DungeonController {
         switch (event.getCode()) {
         case UP:
             player.moveUp();
+            dungeon.updatePlayerSubject();
             break;
         case DOWN:
             player.moveDown();
+            dungeon.updatePlayerSubject();
             break;
         case LEFT:
             player.moveLeft();
+            dungeon.updatePlayerSubject();
             break;
         case RIGHT:
             player.moveRight();
+            dungeon.updatePlayerSubject();
             break;
         case SPACE:
             player.collect();
-            break;
-        case ENTER:
-            player.reach();
             break;
         default:
             break;

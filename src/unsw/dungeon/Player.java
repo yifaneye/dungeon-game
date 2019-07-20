@@ -23,16 +23,6 @@ public class Player extends Entity {
 		this.dungeon = dungeon;
 	}
 
-	public boolean hasExit(int x, int y) {
-		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
-			if (e instanceof Exit && x == e.getX() && y == e.getY()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	public Boulder hasBoulder(int x, int y) {
 		Boulder boulder = new Boulder(-1, -1);
 		List<Entity> el = dungeon.getEntities();
@@ -43,8 +33,6 @@ public class Player extends Entity {
 		}
 		return boulder;
 	}
-	
-	
 	
 	public boolean playerCanMove(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
@@ -115,33 +103,17 @@ public class Player extends Entity {
 	}
 	
 	public void collect() {
-		int count = 0;
+		
+		System.out.print("space pressed with "+ dungeon.getEntities().size() + " entities remained\n");
 		Entity en = dungeon.findEntity(getX(), getY());
-		System.out.print(en.getClass().getName());
-		System.out.print("\n");
-		if (!(en instanceof Player)) {
-			System.out.print(en.isCollectable());
-			if (en.isCollectable()) {
-				//dungeon.removeEntity(en); 
-				en.x().set(count);
-				count++;
-				en.y().set(0);
-				
-			}
+		if (!(en instanceof Player) && en.ableToCollect() == true) {
+			dungeon.removeEntity(en); 
+			en.x().set(getX()+ dungeon.getWidth());
+			System.out.print("removed entity with " + dungeon.getEntities().size() + " entites remain\n");
+		}else {
+			System.out.print("nothing to collect\n");
 		}
-	}
-	
-	public void reach() {
-		int count = 0;
-		Entity en = dungeon.findEntity(getX(), getY());
-		System.out.print(en.getClass().getName());
-		System.out.print("\n");
-		if (!(en instanceof Player)) {
-			System.out.print(en.isReachable());
-			if (en.isReachable()) {
-				count++;
-			}
-		}
+		
 	}
 	
 }

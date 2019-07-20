@@ -20,12 +20,15 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    private PlayerSubject playersubject;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        this.playersubject = new PlayerSubject();
+        
     }
 
     public int getWidth() {
@@ -48,6 +51,10 @@ public class Dungeon {
         entities.add(entity);
     }
 
+	public PlayerSubject getPlayersubject() {
+		return playersubject;
+	}
+
 	public List<Entity> getEntities() {
 		return entities;
 	}
@@ -56,14 +63,18 @@ public class Dungeon {
         entities.remove(entity);
     }
     
+    public void updatePlayerSubject() {
+    	System.out.println("Update\n");
+    	playersubject.setXY(player.getX(), player.getY());
+    }
+    
     public Entity findEntity(int x, int y) {
-		Entity en = new Entity(-1,-1);
+		Entity en = null;
     	for (Entity e : entities) {
 			if (x == e.getX() && y == e.getY()) {
 				en = e;
 			}
 		}
-    	this.removeEntity(en);
     	return en;
     }
 

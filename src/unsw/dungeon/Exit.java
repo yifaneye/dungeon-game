@@ -6,8 +6,4 @@ public class Exit extends Entity {
         super(x, y);
     }
 
-    public boolean isReachable() {
-    	return true;
-    }
-    
 }
