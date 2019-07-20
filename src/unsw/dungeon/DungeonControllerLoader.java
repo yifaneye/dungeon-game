@@ -124,9 +124,9 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Door door) {
-        ImageView view = new ImageView(doorImage);
+        ImageView view = new ImageView(dccrImage);
         addEntity(door, view);
-        view = new ImageView(dccrImage);
+        view = new ImageView(doorImage);
         addEntity(door, view);
     }
 
