@@ -18,15 +18,13 @@ public class Player extends Entity {
 	 * @param x
 	 * @param y
 	 */
-	Goal goal = new Goal();
-	
 	public Player(Dungeon dungeon, int x, int y) {
 		super(x, y);
 		this.dungeon = dungeon;
 	}
 
 	public Boulder hasBoulder(int x, int y) {
-		Boulder boulder = new Boulder(-1, -1);
+		Boulder boulder = null;
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
 			if (e instanceof Boulder && x == e.getX() && y == e.getY()) {
@@ -61,7 +59,7 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX(), getY() - 1);
 			if (playerCanMove(getX(), getY() - 1)) {
 				y().set(getY() - 1);
-			} else if ((b.getY() != -1 && boulderCanMove(getX(), getY() - 2))) {
+			} else if ((b!= null && boulderCanMove(getX(), getY() - 2))) {
 				b.y().set(getY() - 2);
 				y().set(getY() - 1);
 			}
@@ -69,16 +67,11 @@ public class Player extends Entity {
 	}
 
 	public void moveDown() {
-		System.out.println("Switch " + dungeon.getTotalSwitch() +"\n");
-		System.out.println("Enemy " + dungeon.getTotalEnemies() +"\n");
-		System.out.println("Tresure " + dungeon.getTotalTreasure() +"\n");
-		
-		
 		if (getX() < dungeon.getWidth() - 1) {
 			Boulder b = hasBoulder(getX(), getY() + 1);
 			if (playerCanMove(getX(), getY() + 1)) {
 				y().set(getY() + 1);
-			} else if (b.getY() != -1 && boulderCanMove(getX(), getY() + 2)) {
+			} else if (b!= null && boulderCanMove(getX(), getY() + 2)) {
 				b.y().set(getY() + 2);
 				y().set(getY() + 1);
 			}
@@ -90,7 +83,7 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX() - 1, getY());
 			if (playerCanMove(getX() - 1, getY())) {
 				x().set(getX() - 1);
-			} else if ((b.getX() != -1 && boulderCanMove(getX() - 2, getY()))) {
+			} else if ((b!= null && boulderCanMove(getX() - 2, getY()))) {
 				b.x().set(getX() - 2);
 				x().set(getX() - 1);
 			}
@@ -102,7 +95,7 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX() + 1, getY());
 			if (playerCanMove(getX() + 1, getY())) {
 				x().set(getX() + 1);
-			} else if (b.getX() != -1 && boulderCanMove(getX() + 2, getY())) {
+			} else if (b!= null && boulderCanMove(getX() + 2, getY())) {
 				b.x().set(getX() + 2);
 				x().set(getX() + 1);
 			}
@@ -127,16 +120,12 @@ public class Player extends Entity {
 		Entity en = dungeon.findEntity(getX(), getY());
 		System.out.print(en.getClass().getName());
 		System.out.print("\n");
-		if (!(en instanceof Player)) {
-			System.out.print(en.isReachable());
-			if (en.isReachable()) {
-				if (en instanceof Exit) {
-					//goal.setExitGoal(true);
-					boolean ret = goal.checkGoal();
-					if (ret) System.out.print("you win");
-					else System.out.print("you lose");
-				}
-			}
+		if (en instanceof Exit) {
+			dungeon.getGoal().setReachExit(true);
+			
+			//boolean ret = goal.checkGoals();
+			//if (ret) System.out.print("you win");
+			//else System.out.print("you lose");
 		}
 	}
 

@@ -28,7 +28,11 @@ public class Entity {
     	return false;
     }
     
-    public boolean isReachable() {
+    /*public boolean isReachable() {
+    	return false;
+    }*/
+    
+    public boolean switchOpen(Dungeon dungeon) {
     	return false;
     }
     

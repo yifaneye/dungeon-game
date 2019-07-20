@@ -29,7 +29,7 @@ public class Dungeon {
         this.entities = new ArrayList<>();
         this.player = null;
         this.playersubject = new PlayerSubject();
-        this.goal = new Goal();
+        this.goal = new Goal(this);
     }
     
     public Entity findEntity(int x, int y) {
@@ -48,6 +48,7 @@ public class Dungeon {
     }
     
     //getter&&setter 
+    
     public int getTotalSwitch() {
     	return goal.getTotalSwitch();
     }
@@ -72,8 +73,6 @@ public class Dungeon {
         this.goal.setTotalTreasure(totalTreasure);
     }
     
-    
-    
     public int getWidth() {
         return width;
     }
@@ -93,6 +92,10 @@ public class Dungeon {
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
+
+	public Goal getGoal() {
+		return goal;
+	}
 
 	public List<Entity> getEntities() {
 		return entities;
