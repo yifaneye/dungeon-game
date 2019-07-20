@@ -24,7 +24,11 @@ public class Entity {
         this.y = new SimpleIntegerProperty(y);
     }
     
-    public boolean ableToCollect () {
+    public boolean ableToCollect() {
+    	return false;
+    }
+    
+    public boolean isReachable() {
     	return false;
     }
     

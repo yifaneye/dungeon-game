@@ -69,6 +69,9 @@ public class DungeonController {
         case SPACE:
             player.collect();
             break;
+        case ENTER:
+            player.reach();
+            break;
         default:
             break;
         }

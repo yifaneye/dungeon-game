@@ -18,6 +18,8 @@ public class Player extends Entity {
 	 * @param x
 	 * @param y
 	 */
+	Goal goal = new Goal();
+	
 	public Player(Dungeon dungeon, int x, int y) {
 		super(x, y);
 		this.dungeon = dungeon;
@@ -110,10 +112,28 @@ public class Player extends Entity {
 			dungeon.removeEntity(en); 
 			en.x().set(getX()+ dungeon.getWidth());
 			System.out.print("removed entity with " + dungeon.getEntities().size() + " entites remain\n");
-		}else {
+		} else {
 			System.out.print("nothing to collect\n");
 		}
 		
 	}
+	
+	public void reach() {
+		Entity en = dungeon.findEntity(getX(), getY());
+		System.out.print(en.getClass().getName());
+		System.out.print("\n");
+		if (!(en instanceof Player)) {
+			System.out.print(en.isReachable());
+			if (en.isReachable()) {
+				if (en instanceof Exit) {
+					goal.setExitGoal(true);
+					boolean ret = goal.checkGoal();
+					if (ret) System.out.print("you win");
+					else System.out.print("you lose");
+				}
+			}
+		}
+	}
+
 	
 }
