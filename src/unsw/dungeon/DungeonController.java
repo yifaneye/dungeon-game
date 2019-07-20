@@ -72,9 +72,6 @@ public class DungeonController {
         case ENTER:
             player.reach();
             break;
-        case B:
-            player.drop();
-            break;
         default:
             break;
         }

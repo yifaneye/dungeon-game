@@ -12,11 +12,10 @@ public class Player extends Entity {
 
 	private Dungeon dungeon;
 
-	public static int hasSwordHits = 0;
-	public static int hasInvincibilityMoves = 0;
-	public static int hasKeyID = -1;
-	public static int hasUnlitBombs = 0;
-	
+	public int hasSwordHits = 0;
+	public int hasInvincibilityMoves = 0;
+	public int hasKeyID = -1;
+
 	/**
 	 * Create a player positioned in square (x,y)
 	 * 
@@ -38,12 +37,17 @@ public class Player extends Entity {
 		}
 		return boulder;
 	}
-	
+
 	public boolean playerCanMove(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
-			if ((e instanceof Wall || e instanceof Boulder) && x == e.getX() && y == e.getY()) {	
+			if (x == e.getX() && y == e.getY() && (e instanceof Wall || e instanceof Boulder ) ) {
 				return false;
+			}
+			if (x == e.getX() && y == e.getY() && e instanceof Door) {
+				if(!((Door)e).canOpen(this) && !((Door)e).canGetThough()) {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -64,13 +68,13 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX(), getY() - 1);
 			if (playerCanMove(getX(), getY() - 1)) {
 				y().set(getY() - 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
-			} else if ((b!= null && boulderCanMove(getX(), getY() - 2))) {
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
+			} else if ((b != null && boulderCanMove(getX(), getY() - 2))) {
 				b.y().set(getY() - 2);
 				y().set(getY() - 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
 			}
 		}
 	}
@@ -80,13 +84,13 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX(), getY() + 1);
 			if (playerCanMove(getX(), getY() + 1)) {
 				y().set(getY() + 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
-			} else if (b!= null && boulderCanMove(getX(), getY() + 2)) {
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
+			} else if (b != null && boulderCanMove(getX(), getY() + 2)) {
 				b.y().set(getY() + 2);
 				y().set(getY() + 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
 			}
 		}
 	}
@@ -96,13 +100,13 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX() - 1, getY());
 			if (playerCanMove(getX() - 1, getY())) {
 				x().set(getX() - 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
-			} else if ((b!= null && boulderCanMove(getX() - 2, getY()))) {
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
+			} else if ((b != null && boulderCanMove(getX() - 2, getY()))) {
 				b.x().set(getX() - 2);
 				x().set(getX() - 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
 			}
 		}
 	}
@@ -112,50 +116,47 @@ public class Player extends Entity {
 			Boulder b = hasBoulder(getX() + 1, getY());
 			if (playerCanMove(getX() + 1, getY())) {
 				x().set(getX() + 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
-			} else if (b!= null && boulderCanMove(getX() + 2, getY())) {
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
+			} else if (b != null && boulderCanMove(getX() + 2, getY())) {
 				b.x().set(getX() + 2);
 				x().set(getX() + 1);
-				if (hasInvincibilityMoves > 0) hasInvincibilityMoves--;
-				countdown();
+				if (hasInvincibilityMoves > 0)
+					hasInvincibilityMoves--;
 			}
 		}
 	}
-	
+
 	public void collect() {
-		
-		System.out.print("space pressed with "+ dungeon.getEntities().size() + " entities remained\n");
+
+		System.out.print("space pressed with " + dungeon.getEntities().size() + " entities remained\n");
 		Entity en = dungeon.findEntity(getX(), getY());
 		if (!(en instanceof Player) && en.ableToCollect() == true) {
 			if (en instanceof Sword && hasSwordHits == 0) {
-				en.x().set(getX()+ dungeon.getWidth());
+				en.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(en);
 				hasSwordHits = 5;
 			} else if (en instanceof Invincibility && hasInvincibilityMoves == 0) {
-				en.x().set(getX()+ dungeon.getWidth());
+				en.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(en);
 				hasInvincibilityMoves = 15;
 			} else if (en instanceof Key && hasKeyID == -1) {
-				en.x().set(getX()+ dungeon.getWidth());
+				en.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(en);
 				hasKeyID = ((Key) en).id;
-			} else if(en instanceof Treasure) {
-				en.x().set(getX()+ dungeon.getWidth());
+			} else if (en instanceof Treasure) {
+				en.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(en);
-				dungeon.setTreasureNumber(dungeon.getTreasureNumber()+1);
-			} else if(en instanceof Bomb) {
-				en.x().set(getX()+ dungeon.getWidth());
-				dungeon.removeEntity(en);
-				hasUnlitBombs++;
+				dungeon.setTreasureNumber(dungeon.getTreasureNumber() + 1);
 			}
 			System.out.print("removed entity with " + dungeon.getEntities().size() + " entites remain\n");
+
 		} else {
 			System.out.print("nothing to collect\n");
 		}
-		
+
 	}
-	
+
 	public void reach() {
 		Entity en = dungeon.findEntity(getX(), getY());
 		System.out.print(en.getClass().getName());
@@ -163,48 +164,14 @@ public class Player extends Entity {
 		if (en instanceof Exit) {
 			dungeon.getGoal().setReachExit(true);
 			boolean ret = dungeon.getGoal().checkGoals();
-			if (ret) System.out.print("--- you win ---");
-			else System.out.print("--- you lose ---");
+			if (ret)
+				System.out.print("--- you win ---");
+			else
+				System.out.print("--- you lose ---");
 			System.exit(0);
 		}
 	}
-	
-	public void drop() {
-		if (hasUnlitBombs > 0) {
-			Drop drop = new Drop(getX(), getY());
-			dungeon.addEntity(drop);
-		}
-	}
-	
-	public void countdown() {
-		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
-			if (e instanceof Drop) {
-				if (((Drop) e).getCountdown() > 0) ((Drop) e).setCountdown(((Drop) e).getCountdown() - 1);
-				else {
-					explode(e.getX()-1, e.getY());
-					explode(e.getX()+1, e.getY());
-					explode(e.getX(), e.getY());
-					explode(e.getX(), e.getY()-1);
-					explode(e.getX(), e.getY()+1);
-				}
-			}
-		}
-	}
-	
-	public void explode(int x, int y) {
-		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
-			if ((e instanceof Enemy || e instanceof Boulder) && e.getX() == x && e.getY() == y) {
-				e.x().set(getX()+ dungeon.getWidth());
-				dungeon.removeEntity(e);
-			} else if (e instanceof Player && e.getX() == x && e.getY() == y) {
-				System.out.println("--- you lose ---");
-				System.exit(1);
-			}
-		}
-	}
-	
+
 	public void kill() {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
@@ -220,11 +187,20 @@ public class Player extends Entity {
 			}
 		}
 	}
-	
+
 	public boolean isUnarmedPlayer() {
-		if (hasSwordHits == 0 && hasInvincibilityMoves == 0) return true;
-		else if (hasInvincibilityMoves == 0) hasSwordHits--;
+		if (hasSwordHits == 0 && hasInvincibilityMoves == 0)
+			return true;
+		else if (hasInvincibilityMoves == 0)
+			hasSwordHits--;
 		return false;
 	}
 
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public int getHasKeyID() {
+		return hasKeyID;
+	}
 }

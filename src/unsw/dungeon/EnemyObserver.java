@@ -2,9 +2,9 @@ package unsw.dungeon;
 
 public class EnemyObserver implements Observer{
 	
-	int x = 0;
-	int y = 0;
-	boolean hasInvincibility = false;
+	public int x = 0;
+	public int y = 0;
+	public boolean hasInvincibility = false;
 	
 	@Override
 	public void update(Subject obj) {
