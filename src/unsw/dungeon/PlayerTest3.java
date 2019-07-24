@@ -35,10 +35,21 @@ public class PlayerTest3 {
 		Key key = new Key(2, 1, 2511);
 		dungeon.addEntity(key);
 		player.collect();
-		Door door = new Door(3, 1, 2567);
+		
+		Door door = new Door(3, 1, 2511);
 		dungeon.addEntity(door);
+		Door door2 = new Door(3, 2, 2567);
+		dungeon.addEntity(door2);		
+		
 		player.moveRight();
-		assertEquals(player.getX(), 2);
+		assertEquals(player.getX(), 3);
+		assertEquals(player.getY(), 1);
+		assertEquals(player.hasKeyID, -1);
+
+		player.moveDown();
+		assertEquals(player.getX(), 3);
+		assertEquals(player.getY(), 1);
+		assertEquals(player.hasKeyID, -1);
 	}
 
 }

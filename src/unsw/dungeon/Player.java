@@ -39,6 +39,12 @@ public class Player extends Entity {
 		return boulder;
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean playerCanMove(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
@@ -101,6 +107,9 @@ public class Player extends Entity {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void moveLeft() {
 		if (getX() > 0) {
 			Boulder b = hasBoulder(getX() - 1, getY());
