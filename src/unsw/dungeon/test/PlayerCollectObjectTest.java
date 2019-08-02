@@ -26,52 +26,35 @@ public class PlayerCollectObjectTest {
 		int hasKeyID = -1;
 		int hasUnlitBombs = 0;
 		
-		assertNotEquals(hasKeyID, hasSwordHits);
-		assertNotEquals(hasKeyID, hasInvincibilityMoves);
-		assertNotEquals(hasKeyID, hasUnlitBombs);
+		assertEquals(hasSwordHits, 0);
+		assertEquals(hasInvincibilityMoves, 0);
+		assertEquals(hasKeyID, -1);
+		assertEquals(hasUnlitBombs, 0);
 		
-		Boulder boulder12 = new Boulder(1, 2);
-		Boulder boulder21 = new Boulder(2, 1);
-		dungeon.addEntity(boulder12);
-		Boulder ret1 = player.hasBoulder(1, 2);
-		
-		assertEquals(ret1, boulder12);
-		assertNotEquals(ret1, boulder21);
-		
-		// intended to move down - not blocked by boulder
-		boolean ret2 = player.playerCanMove(1, 3);
-		assertEquals(ret2, true);
-		
-		// intended to move down - not blocked by boulder
-		player.moveDown();
-		assertEquals(player.getY(), 2);
-		
-		// intended to move down - blocked by boulder
-		Boulder boulder14 = new Boulder(1, 4);
-		dungeon.addEntity(boulder14);
-		ret2 = player.playerCanMove(1, 4);
-		assertEquals(ret2, false);
-		
-		// intended to move down - not blocked by boulder
-		player.moveDown();
-		assertEquals(player.getY(), 2);
-		
-		// intended to move left - not blocked by boundary
-		player.moveLeft();
-		assertEquals(player.getX(), 0);
-		
-		// intended to move left - blocked by boundary
-		player.moveLeft();
-		assertEquals(player.getX(), 0);
-		
-		boolean ret3 = player.isUnarmedPlayer();
-		assertEquals(ret3, true);
-		
-		Sword sword = new Sword(0, 2);
-		dungeon.addEntity(sword);
+		boolean ret = player.isUnarmedPlayer();
+		assertEquals(ret, true);
+
+		Invincibility invincibility = new Invincibility(2, 1);
+		dungeon.addEntity(invincibility);
+		player.moveRight();
 		player.collect();
-		ret3 = player.isUnarmedPlayer();
-		assertEquals(ret3, false);
+		ret = player.isUnarmedPlayer();
+		assertEquals(ret, false);
+		assertEquals(player.hasInvincibilityMoves, 15);
+
+		Invincibility invincibility2 = new Invincibility(3, 1);
+		dungeon.addEntity(invincibility2);
+		player.moveRight();
+		assertEquals(player.hasInvincibilityMoves, 14);
+		player.collect();
+		ret = player.isUnarmedPlayer();
+		assertEquals(ret, false);
+		assertEquals(player.hasInvincibilityMoves, 15);
+
+		player.moveUp();
+		ret = player.isUnarmedPlayer();
+		assertEquals(ret, false);
+		assertEquals(player.hasInvincibilityMoves, 14);
 	}
 
 }

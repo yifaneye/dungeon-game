@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package unsw.dungeon.test;
 
 import unsw.dungeon.*;
@@ -6,7 +9,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class PlayerKillEnemyWithSwordTest {
+/**
+ * @author z5210859
+ *
+ */
+public class PlayerCollectSwordTest {
 
 	@Test
 	public void test() {
@@ -28,22 +35,11 @@ public class PlayerKillEnemyWithSwordTest {
 		player.collect();
 		assertEquals(player.hasSwordHits, 5);
 		
-		PlayerSubject playerSubject = new PlayerSubject();
-		Enemy enemy = new Enemy(dungeon, 2, 2, playerSubject);
-		dungeon.addEntity(enemy);
-		assertEquals(enemy.getX(), 2);
-		assertEquals(enemy.getY(), 2);
-		
-		player.moveDown();
-		assertEquals(player.hasSwordHits, 4);
-		
-		Enemy enemy2 = new Enemy(dungeon, 3, 2, playerSubject);
-		assertEquals(enemy2.getX(), 3);
-		assertEquals(enemy2.getY(), 2);
-		dungeon.addEntity(enemy2);
-		
+		Sword sword2 = new Sword(3, 1);
+		dungeon.addEntity(sword2);
 		player.moveRight();
-		assertEquals(player.hasSwordHits, 3);
+		player.collect();
+		assertEquals(player.hasSwordHits, 5);
 	}
-	
+
 }

@@ -29,14 +29,12 @@ public class Enemy extends Entity {
 		el.forEach(e->{
 			if (getX() == e.getX() && getY() == e.getY() && e instanceof Player) {
 				if (((Player) e).isUnarmedPlayer()) {
-					e.x().set(getX() + dungeon.getWidth());
-					dungeon.removeEntity(e);
 					System.out.println("--- you lose ---");
+					e.x().set(getX() + dungeon.getWidth());
 					System.exit(0);
 				} else {
-					x().set(getX() + dungeon.getWidth());
-					dungeon.removeEntity(this);
 					System.out.println("--- you killed the enemy ---");
+					x().set(getX() + dungeon.getWidth());
 				}
 			}
 		});

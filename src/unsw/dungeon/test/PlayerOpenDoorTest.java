@@ -20,39 +20,38 @@ public class PlayerOpenDoorTest {
 		Dungeon dungeon = new Dungeon(6, 6);
 		Player player = new Player(dungeon, 1, 1);
 		dungeon.addEntity(player);
-		
-		int hasSwordHits = 0;
-		int hasInvincibilityMoves = 0;
-		int hasKeyID = -1;
-		int hasUnlitBombs = 0;
-		
-		assertNotEquals(hasKeyID, hasSwordHits);
-		assertNotEquals(hasKeyID, hasInvincibilityMoves);
-		assertNotEquals(hasKeyID, hasUnlitBombs);
-		
-		boolean ret = player.isUnarmedPlayer();
-		assertEquals(ret, true);
-		
-		player.moveRight();
+			
 		Key key = new Key(2, 1, 2511);
 		dungeon.addEntity(key);
-		player.collect();
-		
-		Door door = new Door(3, 1, 2511);
-		dungeon.addEntity(door);
-		Door door2 = new Door(3, 2, 2567);
-		dungeon.addEntity(door2);		
 		
 		player.moveRight();
-		assertEquals(player.getX(), 3);
+		player.collect();
+		assertEquals(player.hasKeyID, 2511);
+		
+		Door door = new Door(3, 1, 2567);
+		dungeon.addEntity(door);
+		Door door2 = new Door(2, 2, 2511);
+		dungeon.addEntity(door2);	
+		Door door3 = new Door(2, 3, 2511);
+		dungeon.addEntity(door3);	
+		
+		// player intends to go through door no.2567 with key no.2511 - failed
+		player.moveRight();
+		assertEquals(player.getX(), 2);
 		assertEquals(player.getY(), 1);
-		assertEquals(player.hasKeyID, -1);
+		assertEquals(player.hasKeyID, 2511);
 
+		// player intends to go through door no.2511 with key no.2511 - success
 		player.moveDown();
-		assertEquals(player.getX(), 3);
-		assertEquals(player.getY(), 1);
+		assertEquals(player.getX(), 2);
+		assertEquals(player.getY(), 2);
+		assertEquals(player.hasKeyID, -1);
+		
+		// player intends to go through door no.2511 without a key - failed
+		player.moveDown();
+		assertEquals(player.getX(), 2);
+		assertEquals(player.getY(), 2);
 		assertEquals(player.hasKeyID, -1);
 	}
 
 }
-

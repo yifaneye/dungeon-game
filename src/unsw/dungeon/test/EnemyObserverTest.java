@@ -20,12 +20,19 @@ public class EnemyObserverTest {
 		assertEquals(enemy.getObserver().y, 0);
 		assertEquals(enemy.getObserver().hasInvincibilityMoves, 0);
 
-		// test when subject changed
-		playerSubject.setXY(2, 7);
+		// test observer after subject has changed
+		playerSubject.setXY(3, 4);
 		playerSubject.setHasInvincibilityMoves(15);
-		assertEquals(enemy.getObserver().x, 2);
-		assertEquals(enemy.getObserver().y, 7);
+		assertEquals(enemy.getObserver().x, 3);
+		assertEquals(enemy.getObserver().y, 4);
 		assertEquals(enemy.getObserver().hasInvincibilityMoves, 15);
+		
+		// test observer after subject has changed
+		playerSubject.setXY(4, 4);
+		playerSubject.setHasInvincibilityMoves(14);
+		assertEquals(enemy.getObserver().x, 4);
+		assertEquals(enemy.getObserver().y, 4);
+		assertEquals(enemy.getObserver().hasInvincibilityMoves, 14);
 	}
 
 }

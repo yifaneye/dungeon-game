@@ -136,7 +136,8 @@ public class Player extends Entity {
 
 	public void countdown() {
 		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
+		if (el == null) return;
+		el.forEach(e->{
 			if (e instanceof Drop) {
 				if (((Drop) e).getCountdown() > 0)
 					((Drop) e).setCountdown(((Drop) e).getCountdown() - 1);
@@ -149,30 +150,30 @@ public class Player extends Entity {
 					dungeon.removeEntity(e);
 				}
 			}
-		}
+		});
 	}
 
 	public void explode(int x, int y) {
 		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
+		if (el == null) return;
+		el.forEach(e->{
 			if (e.getX() == x && e.getY() == y && e instanceof Player) {
 				System.out.println("--- you lose ---");
 				System.exit(1);
 			} else if (e.getX() == x && e.getY() == y && (e instanceof Enemy || e instanceof Boulder)) {
-				e.x().set(0);
-				dungeon.removeEntity(e);
+				e.x().set(getX() + dungeon.getWidth());
 			}
-		}
+		});
 	}
 
 	public void collect() {
 		Entity e = dungeon.findEntity(getX(), getY());
 		if (!(e instanceof Player) && e.isCollectable() == true) {
-			if (e instanceof Sword && hasSwordHits == 0) {
+			if (e instanceof Sword) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
 				hasSwordHits = 5;
-			} else if (e instanceof Invincibility && hasInvincibilityMoves == 0) {
+			} else if (e instanceof Invincibility) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
 				hasInvincibilityMoves = 15;
@@ -208,26 +209,26 @@ public class Player extends Entity {
 	
 	public void kill() {
 		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
+		if (el == null) return;
+		el.forEach(e->{
 			if (e instanceof Enemy && getX() == e.getX() && getY() == e.getY()) {
 				if (this.isUnarmedPlayer()) {
-					x().set(getX() + dungeon.getWidth());
-					dungeon.removeEntity(this);
 					System.out.println("--- you lose ---");
+					x().set(getX() + dungeon.getWidth());
 					System.exit(0);
 				} else {
-					e.x().set(getX() + dungeon.getWidth());
-					dungeon.removeEntity(e);
 					System.out.println("--- you killed the enemy ---");
+					e.x().set(getX() + dungeon.getWidth());
+					return;
 				}
 			}
-		}
+		});
 	}
 
 	public boolean isUnarmedPlayer() {
-		if (hasSwordHits == 0 && hasInvincibilityMoves == 0)
+		if (hasSwordHits <= 0 && hasInvincibilityMoves <= 0)
 			return true;
-		else if (hasInvincibilityMoves == 0)
+		else if (hasInvincibilityMoves <= 0)
 			hasSwordHits--;
 		return false;
 	}

@@ -10,32 +10,32 @@ import org.junit.Test;
 
 public class EnemyNormalMoveTest {
 
-	@Test // Test enemy move without invincibility potion
+	@Test // Test enemy run towards the player
 	public void test() {
-		Dungeon dungeon = new Dungeon(6, 6);
+Dungeon dungeon = new Dungeon(6, 6);
+		
 		Player player = new Player(dungeon, 1, 1);
 		dungeon.addEntity(player);
 		dungeon.setPlayer(player);
-
 		PlayerSubject playerSubject = new PlayerSubject();
-		Enemy enemy = new Enemy(dungeon, 6, 1, playerSubject);
+		Enemy enemy = new Enemy(dungeon, 5, 2, playerSubject);
 		dungeon.addEntity(enemy);
-
-		assertEquals(enemy.getY(), 1);
-		assertEquals(enemy.getX(), 6);
+		
+		assertEquals(enemy.getX(), 5);
+		assertEquals(enemy.getY(), 2);
 
 		Timer timer = new Timer();
-		timer.schedule(enemy.getEnemyMove(), 0, 1000);
+		timer.schedule(enemy.getEnemyMove(), 0, 750);
 		dungeon.setTotalEnemies(dungeon.getTotalEnemies() + 1);
-		assertEquals((int) enemy.getX(), 6);
+		
 		try {
-			Thread.sleep(500);
+			Thread.sleep(700);
 		} catch (InterruptedException e) {
 			System.out.println(e);
 		}
-		assertEquals(enemy.getX(), 5);
-		assertEquals(enemy.getY(), 1);
-
+		
+		assertEquals(enemy.getX(), 4);
+		assertEquals(enemy.getY(), 2);
 	}
-
+	
 }

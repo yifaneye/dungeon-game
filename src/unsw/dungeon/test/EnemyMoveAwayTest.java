@@ -8,35 +8,52 @@ import org.junit.Test;
 
 public class EnemyMoveAwayTest {
 
-	@Test // Test enemy move with invincibility
+	@Test // Test enemy run away from the player when player has invincibility potion
 	public void test() {
 		Dungeon dungeon = new Dungeon(6, 6);
+		
 		Player player = new Player(dungeon, 1, 1);
 		dungeon.addEntity(player);
 		dungeon.setPlayer(player);
-
 		PlayerSubject playerSubject = new PlayerSubject();
-		Enemy enemy = new Enemy(dungeon, 6, 1, playerSubject);
+		Enemy enemy = new Enemy(dungeon, 2, 2, playerSubject);
 		dungeon.addEntity(enemy);
-
-		assertEquals(enemy.getY(), 1);
-		assertEquals(enemy.getX(), 6);
+		
+		assertEquals(enemy.getX(), 2);
+		assertEquals(enemy.getY(), 2);
 
 		playerSubject.setHasInvincibilityMoves(15);
 
 		Timer timer = new Timer();
-		timer.schedule(enemy.getEnemyMove(), 0, 1000);
+		timer.schedule(enemy.getEnemyMove(), 0, 750);
 		dungeon.setTotalEnemies(dungeon.getTotalEnemies() + 1);
-		assertEquals((int) enemy.getX(), 6);
+		
 		try {
-			Thread.sleep(500);
+			Thread.sleep(700);
 		} catch (InterruptedException e) {
 			System.out.println(e);
 		}
-		System.out.print(enemy.getX());
-		assertEquals((int) enemy.getX(), 7);
-		assertEquals(enemy.getY(), 1);
-		System.out.print(enemy.getX());
+		
+		assertEquals(enemy.getX(), 2);
+		assertEquals(enemy.getY(), 3);
+		
+		try {
+			Thread.sleep(750);
+		} catch (InterruptedException e) {
+			System.out.println(e);
+		}
+		
+		assertEquals(enemy.getX(), 2);
+		assertEquals(enemy.getY(), 4);
+		
+		try {
+			Thread.sleep(750);
+		} catch (InterruptedException e) {
+			System.out.println(e);
+		}
+		
+		assertEquals(enemy.getX(), 2);
+		assertEquals(enemy.getY(), 5);
 	}
 
 }
