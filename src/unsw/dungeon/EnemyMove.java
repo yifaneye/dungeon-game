@@ -1,7 +1,6 @@
 package unsw.dungeon;
 
-import java.util.List;
-import java.util.TimerTask;
+import java.util.*;
 
 public class EnemyMove extends TimerTask {
 
@@ -41,6 +40,14 @@ public class EnemyMove extends TimerTask {
 				enemy.y().set(enemy.getY() + 1);
 			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
 				enemy.y().set(enemy.getY() - 1);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1) && enemyCanMove(enemy.getX(), enemy.getY() + 1)){
+				Random r = new Random();
+				int move = r.nextBoolean() ? 1 : -1;
+				enemy.y().set(enemy.getY() + move);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
 			}
 		} else {
 			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
@@ -50,6 +57,14 @@ public class EnemyMove extends TimerTask {
 			} else if (diff_x > 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() + 1);
 			} else if (diff_x < 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() - 1, enemy.getY()) && enemyCanMove(enemy.getX() + 1, enemy.getY())){
+				Random r = new Random();
+				int move = r.nextBoolean() ? 1 : -1;
+				enemy.x().set(enemy.getX() + move);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() - 1);
 			}
 		}
@@ -67,6 +82,14 @@ public class EnemyMove extends TimerTask {
 				enemy.y().set(enemy.getY() - 1);
 			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
 				enemy.y().set(enemy.getY() + 1);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1) && enemyCanMove(enemy.getX(), enemy.getY() + 1)){
+				Random r = new Random();
+				int move = r.nextBoolean() ? 1 : -1;
+				enemy.y().set(enemy.getY() + move);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
+			} else if (diff_y == 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
 			}
 		} else {
 			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
@@ -76,6 +99,14 @@ public class EnemyMove extends TimerTask {
 			} else if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() - 1);
 			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() - 1, enemy.getY()) && enemyCanMove(enemy.getX() + 1, enemy.getY())){
+				Random r = new Random();
+				int move = r.nextBoolean() ? 1 : -1;
+				enemy.x().set(enemy.getX() + move);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
+			} else if (diff_x == 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() + 1);
 			}
 		}

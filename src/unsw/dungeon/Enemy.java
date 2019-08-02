@@ -25,20 +25,21 @@ public class Enemy extends Entity {
 
 	public void kill() {
 		List<Entity> el = dungeon.getEntities();
-		for (Entity e : el) {
+		if (el == null) return;
+		el.forEach(e->{
 			if (getX() == e.getX() && getY() == e.getY() && e instanceof Player) {
 				if (((Player) e).isUnarmedPlayer()) {
 					e.x().set(getX() + dungeon.getWidth());
 					dungeon.removeEntity(e);
 					System.out.println("--- you lose ---");
-					System.exit(1);
+					System.exit(0);
 				} else {
 					x().set(getX() + dungeon.getWidth());
 					dungeon.removeEntity(this);
 					System.out.println("--- you killed the enemy ---");
 				}
 			}
-		}
+		});
 	}
 
 }
