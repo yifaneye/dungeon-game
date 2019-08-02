@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package unsw.dungeon.test;
+
+import unsw.dungeon.*;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package unsw.dungeon;
+package unsw.dungeon.test;
+
+import unsw.dungeon.*;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +13,7 @@ import org.junit.Test;
  * @author z5210859
  *
  */
-public class PlayerTest3 {
+public class PlayerOpenDoorTest {
 
 	@Test
 	public void test() {

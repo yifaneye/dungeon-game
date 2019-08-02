@@ -1,10 +1,12 @@
-package unsw.dungeon;
+package unsw.dungeon.test;
+
+import unsw.dungeon.*;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class EnemyTest2 {
+public class PlayerKillEnemyWithPotionAndSwordTest {
 
 	@Test
 	// kill enemy when player has both potion and sword
