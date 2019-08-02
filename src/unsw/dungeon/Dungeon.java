@@ -41,14 +41,14 @@ public class Dungeon {
 		}
 		return en;
 	}
-
+	
 	public void updatePlayerSubject() {
 		System.out.println("Update\n");
 		playersubject.setXY(player.getX(), player.getY());
 		if (player.hasInvincibilityMoves > 0) {
-			playersubject.setHasInvincibility(true);
+			playersubject.setHasInvincibilityMoves(player.hasInvincibilityMoves);
 		} else {
-			playersubject.setHasInvincibility(false);
+			playersubject.setHasInvincibilityMoves(player.hasInvincibilityMoves);
 		}
 	}
 

@@ -22,7 +22,7 @@ public class EnemyMoveAwayTest {
 		assertEquals(enemy.getY(), 1);
 		assertEquals(enemy.getX(), 6);
 
-		playerSubject.setHasInvincibility(true);
+		playerSubject.setHasInvincibilityMoves(15);
 
 		Timer timer = new Timer();
 		timer.schedule(enemy.getEnemyMove(), 0, 1000);

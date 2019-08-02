@@ -11,48 +11,27 @@ public class EnemyMove extends TimerTask {
 		this.enemy = enemy;
 	}
 
-	// 0,0 stop moving
-	// blocked by wall, and move other way
-
-	@Override
 	public void run() {
-		// reverse movement
 		enemy.kill();
-		if (enemy.getObserver().hasInvincibility) getDirection();
-		else getReverseDirec();
+		if (enemy.getObserver().hasInvincibilityMoves > 0)
+			runAway();
+		else
+			runTowards();
 	}
 
-	public void getReverseDirec() {
-		int diff_x = enemy.getX() - enemy.getObserver().x;
-		int diff_y = enemy.getY() - enemy.getObserver().y;
-
-		if (Math.abs(diff_x) > Math.abs(diff_y)) {
-			if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
-				enemy.x().set(enemy.getX() - 1);
-			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
-				enemy.x().set(enemy.getX() + 1);
-			} else if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
-				enemy.y().set(enemy.getY() - 1);
-			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
-				enemy.y().set(enemy.getY() + 1);
-			}
-		} else {
-			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
-				enemy.y().set(enemy.getY() - 1);
-			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
-				enemy.y().set(enemy.getY() + 1);
-			} else if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
-				enemy.x().set(enemy.getX() - 1);
-			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
-				enemy.x().set(enemy.getX() + 1);
+	public boolean enemyCanMove(int x, int y) {
+		List<Entity> el = enemy.dungeon.getEntities();
+		for (Entity e : el) {
+			if ((e instanceof Wall || e instanceof Boulder) && x == e.getX() && y == e.getY()) {
+				return false;
 			}
 		}
+		return true;
 	}
 
-	public void getDirection() {
+	public void runAway() {
 		int diff_x = enemy.getX() - enemy.getObserver().x;
 		int diff_y = enemy.getY() - enemy.getObserver().y;
-
 		if (Math.abs(diff_x) > Math.abs(diff_y)) {
 			if (diff_x > 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
 				enemy.x().set(enemy.getX() + 1);
@@ -76,14 +55,30 @@ public class EnemyMove extends TimerTask {
 		}
 	}
 
-	public boolean enemyCanMove(int x, int y) {
-		List<Entity> el = enemy.dungeon.getEntities();
-		for (Entity e : el) {
-			if ((e instanceof Wall || e instanceof Boulder) && x == e.getX() && y == e.getY()) {
-				return false;
+	public void runTowards() {
+		int diff_x = enemy.getX() - enemy.getObserver().x;
+		int diff_y = enemy.getY() - enemy.getObserver().y;
+		if (Math.abs(diff_x) > Math.abs(diff_y)) {
+			if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
+			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
+			} else if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
+			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
+			}
+		} else {
+			if (diff_y > 0 && enemyCanMove(enemy.getX(), enemy.getY() - 1)) {
+				enemy.y().set(enemy.getY() - 1);
+			} else if (diff_y < 0 && enemyCanMove(enemy.getX(), enemy.getY() + 1)) {
+				enemy.y().set(enemy.getY() + 1);
+			} else if (diff_x > 0 && enemyCanMove(enemy.getX() - 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() - 1);
+			} else if (diff_x < 0 && enemyCanMove(enemy.getX() + 1, enemy.getY())) {
+				enemy.x().set(enemy.getX() + 1);
 			}
 		}
-		return true;
 	}
 
 }

@@ -26,22 +26,6 @@ public class Entity {
 		this.y = new SimpleIntegerProperty(y);
 	}
 
-	public boolean ableToCollect() {
-		return false;
-	}
-
-	public boolean isReachable() {
-		return false;
-	}
-
-	public boolean isUnarmedPlayer() {
-		return false;
-	}
-
-	public boolean switchOpen(Dungeon dungeon) {
-		return false;
-	}
-
 	public IntegerProperty x() {
 		return x;
 	}
@@ -58,4 +42,20 @@ public class Entity {
 		return x().get();
 	}
 
+	public boolean isUnarmedPlayer() {
+		return false;
+	}
+	
+	public boolean isCollectable() {
+		return false;
+	}
+
+	public boolean isReachable() {
+		return false;
+	}
+
+	public boolean isSwitchOpen(Dungeon dungeon) {
+		return false;
+	}
+	
 }

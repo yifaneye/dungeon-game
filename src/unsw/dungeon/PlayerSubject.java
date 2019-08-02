@@ -3,11 +3,11 @@ package unsw.dungeon;
 import java.util.ArrayList;
 
 public class PlayerSubject implements Subject {
-
+	
 	private ArrayList<Observer> listObservers = new ArrayList<Observer>();
 	private int x = 0;
 	private int y = 0;
-	private boolean hasInvincibility = false;
+	private int hasInvincibilityMoves = 0;
 
 	@Override
 	public void attach(Observer o) {
@@ -21,8 +21,8 @@ public class PlayerSubject implements Subject {
 
 	@Override
 	public void notifyObservers() {
-		for (Observer ob : listObservers) {
-			ob.update(this);
+		for (Observer o : listObservers) {
+			o.update(this);
 		}
 	}
 
@@ -48,12 +48,12 @@ public class PlayerSubject implements Subject {
 		notifyObservers();
 	}
 
-	public boolean isHasInvincibility() {
-		return hasInvincibility;
+	public int gethasInvincibilityMoves() {
+		return hasInvincibilityMoves;
 	}
 
-	public void setHasInvincibility(boolean hasInvincibility) {
-		this.hasInvincibility = hasInvincibility;
+	public void setHasInvincibilityMoves(int hasInvincibilityMoves) {
+		this.hasInvincibilityMoves = hasInvincibilityMoves;
 		notifyObservers();
 	}
 

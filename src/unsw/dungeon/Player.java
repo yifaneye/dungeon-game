@@ -167,7 +167,7 @@ public class Player extends Entity {
 
 	public void collect() {
 		Entity e = dungeon.findEntity(getX(), getY());
-		if (!(e instanceof Player) && e.ableToCollect() == true) {
+		if (!(e instanceof Player) && e.isCollectable() == true) {
 			if (e instanceof Sword && hasSwordHits == 0) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
@@ -211,7 +211,7 @@ public class Player extends Entity {
 		for (Entity e : el) {
 			if (e instanceof Enemy && getX() == e.getX() && getY() == e.getY()) {
 				if (this.isUnarmedPlayer()) {
-					x().set(0);
+					x().set(getX() + dungeon.getWidth());
 					dungeon.removeEntity(this);
 					System.out.println("--- you lose ---");
 					System.exit(0);

@@ -62,7 +62,6 @@ public abstract class DungeonLoader {
             onLoad(wall);
             entity = wall;
             break;
-        // TODO Handle other possible entities
         case "boulder":
             Boulder boulder = new Boulder(x, y);
             onLoad(boulder);
@@ -91,10 +90,10 @@ public abstract class DungeonLoader {
             entity = exit;
             break;
         case "enemy":
-            Enemy enemy = new Enemy(dungeon,x, y, dungeon.getPlayersubject());
+            Enemy enemy = new Enemy(dungeon, x, y, dungeon.getPlayersubject());
             onLoad(enemy);
             Timer timer = new Timer();
-        	timer.schedule(enemy.getEnemyMove(), 0, 800);
+        	timer.schedule(enemy.getEnemyMove(), 0, 750);
             dungeon.setTotalEnemies(dungeon.getTotalEnemies() + 1);
             entity = enemy;
             break;

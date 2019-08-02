@@ -14,18 +14,18 @@ public class EnemyObserverTest {
 		PlayerSubject playerSubject = new PlayerSubject();
 		Enemy enemy = new Enemy(dungeon, 1, 1, playerSubject);
 		dungeon.addEntity(enemy);
+		
 		// test initial observer
 		assertEquals(enemy.getObserver().x, 0);
 		assertEquals(enemy.getObserver().y, 0);
-		assertEquals(enemy.getObserver().hasInvincibility, false);
+		assertEquals(enemy.getObserver().hasInvincibilityMoves, 0);
 
 		// test when subject changed
-
 		playerSubject.setXY(2, 7);
-		playerSubject.setHasInvincibility(true);
+		playerSubject.setHasInvincibilityMoves(15);
 		assertEquals(enemy.getObserver().x, 2);
 		assertEquals(enemy.getObserver().y, 7);
-		assertEquals(enemy.getObserver().hasInvincibility, true);
+		assertEquals(enemy.getObserver().hasInvincibilityMoves, 15);
 	}
 
 }
