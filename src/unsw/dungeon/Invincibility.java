@@ -6,7 +6,7 @@ public class Invincibility extends Entity {
 		super(x, y);
 	}
 
-	public boolean ableToCollect() {
+	public boolean isCollectable() {
 		return true;
 	}
 

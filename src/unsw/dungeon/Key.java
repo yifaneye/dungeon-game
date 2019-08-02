@@ -9,7 +9,7 @@ public class Key extends Entity {
 		this.id = id;
 	}
 
-	public boolean ableToCollect() {
+	public boolean isCollectable() {
 		return true;
 	}
 

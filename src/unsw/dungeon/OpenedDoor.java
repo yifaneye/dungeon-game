@@ -17,5 +17,4 @@ public class OpenedDoor implements State{
 		return false;
 	}
 	
-	
 }

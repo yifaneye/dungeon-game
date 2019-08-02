@@ -27,7 +27,7 @@ public class Goal {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
 			if (e instanceof Switch) {
-				if(!e.switchOpen(dungeon)) {
+				if(!e.isSwitchOpen(dungeon)) {
 					return false;
 				}
 			}
