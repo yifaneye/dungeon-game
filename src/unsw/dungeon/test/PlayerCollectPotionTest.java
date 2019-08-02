@@ -13,7 +13,7 @@ import org.junit.Test;
  * @author z5210859
  *
  */
-public class PlayerCollectObjectTest {
+public class PlayerCollectPotionTest {
 
 	@Test
 	public void test() {
