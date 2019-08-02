@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.util.Timer;
-
 /**
  * Loads a dungeon from a .json file.
  *

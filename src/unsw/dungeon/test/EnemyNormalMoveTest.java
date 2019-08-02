@@ -29,7 +29,7 @@ public class EnemyNormalMoveTest {
 		dungeon.setTotalEnemies(dungeon.getTotalEnemies() + 1);
 		assertEquals((int) enemy.getX(), 6);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			System.out.println(e);
 		}

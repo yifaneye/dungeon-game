@@ -87,6 +87,7 @@ public class Player extends Entity {
 				countdown();
 			}
 		}
+		kill();
 	}
 
 	public void moveDown() {
@@ -105,6 +106,7 @@ public class Player extends Entity {
 				countdown();
 			}
 		}
+		kill();
 	}
 
 	/**
@@ -126,6 +128,7 @@ public class Player extends Entity {
 				countdown();
 			}
 		}
+		kill();
 	}
 
 	public void moveRight() {
@@ -144,6 +147,7 @@ public class Player extends Entity {
 				countdown();
 			}
 		}
+		kill();
 	}
 
 	public void collect() {
@@ -186,8 +190,10 @@ public class Player extends Entity {
 		if (en instanceof Exit) {
 			dungeon.getGoal().setReachExit(true);
 			boolean ret = dungeon.getGoal().checkGoals();
-			if (ret) System.out.print("--- you win ---");
-			else System.out.print("--- you lose ---");
+			if (ret)
+				System.out.print("--- you win ---");
+			else
+				System.out.print("--- you lose ---");
 			System.exit(0);
 		}
 	}
@@ -211,6 +217,7 @@ public class Player extends Entity {
 					explode(e.getX() + 1, e.getY());
 					explode(e.getX(), e.getY() - 1);
 					explode(e.getX(), e.getY() + 1);
+					dungeon.removeEntity(e);
 				}
 			}
 		}
@@ -239,6 +246,8 @@ public class Player extends Entity {
 		for (Entity e : el) {
 			if (e instanceof Enemy && getX() == e.getX() && getY() == e.getY()) {
 				if (this.isUnarmedPlayer()) {
+					x().set(0);
+					dungeon.removeEntity(this);
 					System.out.println("--- you lose ---");
 					System.exit(1);
 				} else {
