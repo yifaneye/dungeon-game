@@ -74,9 +74,9 @@ public class DungeonControllerLoader extends DungeonLoader {
     }
     
     @Override
-    public void onLoad(Switch switc) {
+    public void onLoad(Switch switch1) {
         ImageView view = new ImageView(switchImage);
-        addEntity(switc, view);
+        addEntity(switch1, view);
     }
     
     @Override
@@ -129,7 +129,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         view = new ImageView(doorImage);
         addEntity(door, view);
     }
-
+    
     private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
         entities.add(view);

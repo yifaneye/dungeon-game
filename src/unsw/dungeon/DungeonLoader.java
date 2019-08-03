@@ -34,12 +34,17 @@ public abstract class DungeonLoader {
         int height = json.getInt("height");
 
         Dungeon dungeon = new Dungeon(width, height);
-
+        
         JSONArray jsonEntities = json.getJSONArray("entities");
-
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        
+        Composite goalCond = new Composite("goal-condition");
+        JSONObject jsonObject = json.getJSONObject("goal-condition");
+        loadGoal(dungeon, jsonObject, goalCond);
+        System.out.println(goalCond.nameString());
+        
         return dungeon;
     }
 
@@ -48,7 +53,6 @@ public abstract class DungeonLoader {
         int x = json.getInt("x");
         int y = json.getInt("y");
         int id;
-
         Entity entity = null;
         switch (type) {
         case "player":
@@ -119,8 +123,46 @@ public abstract class DungeonLoader {
             onLoad(door);
             entity = door;
             break;
-        }
+    	}
         dungeon.addEntity(entity);
+    }
+    
+    private void loadGoal(Dungeon dungeon, JSONObject json, Composite composite) {
+        Leaf exitGoal = new Leaf("exit");
+        Leaf enemiesGoal = new Leaf("enemies");
+        Leaf bouldersGoal = new Leaf("boulders");
+        Leaf treasureGoal = new Leaf("treasure");
+        String goal = json.getString("goal");
+        switch (goal) {
+        case "exit":
+        	composite.add(exitGoal);
+            break;
+        case "enemies":
+        	composite.add(enemiesGoal);
+            break;
+        case "boulders":
+        	composite.add(bouldersGoal);
+            break;
+        case "treasure":
+        	composite.add(treasureGoal);
+            break;
+        case "OR":
+        	Composite or = new Composite("OR");
+            JSONArray jsonSubgoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < jsonSubgoals.length(); i++) {
+                loadGoal(dungeon, jsonSubgoals.getJSONObject(i), or);
+            }
+            composite.add(or);
+        	break;
+        case "AND":
+        	Composite and = new Composite("AND");
+            JSONArray jsonSubGoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < jsonSubGoals.length(); i++) {
+                loadGoal(dungeon, jsonSubGoals.getJSONObject(i), and);
+            }
+            composite.add(and);
+        	break;
+        }
     }
 
     public abstract void onLoad(Entity player);
