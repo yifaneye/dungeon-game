@@ -35,6 +35,7 @@ public class Enemy extends Entity {
 				} else {
 					System.out.println("--- you killed the enemy ---");
 					x().set(getX() + dungeon.getWidth());
+					dungeon.getGoal().setEnemyNumber(dungeon.getGoal().getEnemyNumber() + 1);
 				}
 			}
 		});

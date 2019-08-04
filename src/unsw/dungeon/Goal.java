@@ -2,6 +2,9 @@ package unsw.dungeon;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Goal {
 	
 	private boolean reachExit;
@@ -23,7 +26,6 @@ public class Goal {
 	}
 	
 	public boolean switchGoal(Dungeon dungeon) {
-		Switch switc = null;
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
 			if (e instanceof Switch) {
@@ -105,14 +107,29 @@ public class Goal {
 	}
 
 	public boolean checkGoals() {
-		
-		if (exitGoal() && enemiesGoal()&& switchGoal(dungeon) && treasureGoal()) {
-			return true;
+		boolean ret = true;
+		Composite goalCond = DungeonLoader.goalCond;
+		System.out.println(goalCond.nameString());
+		for (Component g : goalCond.children) {
+			String str = g.nameString();
+			System.out.println(str);
+			if (g.nameString().contains("exit")) {
+				if (!exitGoal()) ret = false;
+				if (exitGoal() && str.contains("OR")) ret = true;
+			}
+			if (g.nameString().contains("enemies")) {
+				if (!enemiesGoal()) return false;
+				if (enemiesGoal() && str.contains("OR")) ret = true;
+			}
+			if (g.nameString().contains("boulder")) {
+				if (!switchGoal(dungeon)) ret = false;
+				if (switchGoal(dungeon) && str.contains("OR")) ret = true;
+			}
+			if (g.nameString().contains("treasure")) {
+				if (!treasureGoal()) ret = false;
+				if (treasureGoal() && str.contains("OR")) ret = true;
+			}
 		}
-		else {
-			return false;
-		}
-		
+		return ret;
 	}
-	
 }

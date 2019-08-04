@@ -184,7 +184,7 @@ public class Player extends Entity {
 			} else if (e instanceof Treasure) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
-				dungeon.setTreasureNumber(dungeon.getTreasureNumber() + 1);
+				dungeon.getGoal().setTreasureNumber(dungeon.getGoal().getTreasureNumber() + 1);
 			} else if (e instanceof Bomb) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
@@ -219,6 +219,7 @@ public class Player extends Entity {
 				} else {
 					System.out.println("--- you killed the enemy ---");
 					e.x().set(getX() + dungeon.getWidth());
+					dungeon.getGoal().setEnemyNumber(dungeon.getGoal().getEnemyNumber() + 1);
 					return;
 				}
 			}

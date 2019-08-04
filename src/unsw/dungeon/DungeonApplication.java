@@ -13,7 +13,7 @@ public class DungeonApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dungeon");
-        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
+        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced3.json");
         
         DungeonController controller = dungeonLoader.loadController();
         

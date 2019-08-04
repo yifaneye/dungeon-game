@@ -25,7 +25,9 @@ public abstract class DungeonLoader {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
     }
 
-    /**
+    public static Composite goalCond = new Composite("goal-condition");
+
+	/**
      * Parses the JSON to create a dungeon.
      * @return
      */
@@ -40,7 +42,7 @@ public abstract class DungeonLoader {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
         
-        Composite goalCond = new Composite("goal-condition");
+        
         JSONObject jsonObject = json.getJSONObject("goal-condition");
         loadGoal(dungeon, jsonObject, goalCond);
         System.out.println(goalCond.nameString());
@@ -188,6 +190,10 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Key key);
     
     public abstract void onLoad(Door door);
+    
+    public Composite getGoalCond() {
+		return goalCond;
+	}
     
     // TODO Create additional abstract methods for the other entities
 
