@@ -18,7 +18,7 @@ public class ClosedDoor implements State{
 		if (player.hasKeyID == door.id) {
 			door.x().set(door.getX() + player.getDungeon().getWidth());
 			player.getDungeon().removeEntity(door);
-			player.hasKeyID = -1;
+			player.setHasKeyID(-1);
 			door.setState(door.getOpenedDoor());
 			return true;
 		} else {

@@ -1,10 +1,8 @@
-/**
- *
- */
 package unsw.dungeon;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -22,6 +20,7 @@ public class Dungeon {
 	private Player player;
 	private PlayerSubject playersubject;
 	private Goal goal;
+	private DungeonController dc = null;
 
 	public Dungeon(int width, int height) {
 		this.width = width;
@@ -51,7 +50,28 @@ public class Dungeon {
 			playersubject.setHasInvincibilityMoves(player.hasInvincibilityMoves);
 		}
 	}
-
+	
+	public void setController(DungeonController dc) {
+		this.dc = dc;
+	}
+	
+	public void setSwordhitDisplay(int n) {
+		this.dc.setText_sword(Integer.toString(n));
+	}
+	
+	public void setInvincibleDisplay(int n) {
+		this.dc.setText_invincibility(Integer.toString(n));
+	}
+	
+	public void setBombDisplay(int n) {
+		this.dc.setText_bomb(Integer.toString(n));
+	}
+	
+	public void setKeyIDDisplay(int n) {
+		this.dc.setText_key((Integer.toString(n)));
+	}
+	
+	// getter & setter
 	public int getTreasureNumber() {
 		return goal.getTreasureNumber();
 	}
@@ -118,6 +138,14 @@ public class Dungeon {
 
 	public PlayerSubject getPlayersubject() {
 		return playersubject;
+	}
+
+	public DungeonController getDc() {
+		return dc;
+	}
+
+	public void setDc(DungeonController dc) {
+		this.dc = dc;
 	}
 
 }

@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.util.List;
 
+
 /**
  * The player entity
  * 
@@ -124,13 +125,14 @@ public class Player extends Entity {
 		kill();
 		countdown();
 		if (hasInvincibilityMoves > 0)
-			hasInvincibilityMoves--;
+			this.setHasInvincibilityMoves(hasInvincibilityMoves-1);
 	}
 	
 	public void drop() {
 		if (hasUnlitBombs > 0) {
 			Drop drop = new Drop(getX(), getY());
 			dungeon.addEntity(drop);
+			setHasUnlitBombs(hasUnlitBombs-1);
 		}
 	}
 
@@ -172,15 +174,15 @@ public class Player extends Entity {
 			if (e instanceof Sword) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
-				hasSwordHits = 5;
+				this.setHasSwordHits(5);
 			} else if (e instanceof Invincibility) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
-				hasInvincibilityMoves = 15;
+				this.setHasInvincibilityMoves(15);
 			} else if (e instanceof Key && hasKeyID == -1) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
-				hasKeyID = ((Key) e).id;
+				this.setHasKeyID(((Key) e).id);
 			} else if (e instanceof Treasure) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
@@ -188,7 +190,7 @@ public class Player extends Entity {
 			} else if (e instanceof Bomb) {
 				e.x().set(getX() + dungeon.getWidth());
 				dungeon.removeEntity(e);
-				hasUnlitBombs++;
+				this.setHasUnlitBombs(hasUnlitBombs+1);
 			}
 		}
 	}
@@ -230,10 +232,11 @@ public class Player extends Entity {
 		if (hasSwordHits <= 0 && hasInvincibilityMoves <= 0)
 			return true;
 		else if (hasInvincibilityMoves <= 0)
-			hasSwordHits--;
+			this.setHasSwordHits(hasSwordHits-1);
 		return false;
 	}
 	
+	//setter & getter
 	public Dungeon getDungeon() {
 		return dungeon;
 	}
@@ -242,6 +245,39 @@ public class Player extends Entity {
 		this.dungeon = dungeon;
 	}
 	
+	public int getHasSwordHits() {
+		return hasSwordHits;
+	}
+
+	public void setHasSwordHits(int hasSwordHits) {
+		this.hasSwordHits = hasSwordHits;
+		this.dungeon.setSwordhitDisplay(hasSwordHits);
+	}
+	
+
+	public int getHasInvincibilityMoves() {
+		return hasInvincibilityMoves;
+	}
+
+	public void setHasInvincibilityMoves(int hasInvincibilityMoves) {
+		this.hasInvincibilityMoves = hasInvincibilityMoves;
+		this.dungeon.setInvincibleDisplay(hasInvincibilityMoves);
+	}
+
+	public int getHasUnlitBombs() {
+		return hasUnlitBombs;
+	}
+
+	public void setHasUnlitBombs(int hasUnlitBombs) {
+		this.hasUnlitBombs = hasUnlitBombs;
+		this.dungeon.setBombDisplay(hasUnlitBombs);
+	}
+
+	public void setHasKeyID(int hasKeyID) {
+		this.hasKeyID = hasKeyID;
+		this.dungeon.setKeyIDDisplay(hasKeyID);
+	}
+
 	public int getHasKeyID() {
 		return hasKeyID;
 	}
