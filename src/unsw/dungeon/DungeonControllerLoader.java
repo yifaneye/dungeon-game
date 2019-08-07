@@ -19,7 +19,7 @@ import javafx.scene.layout.GridPane;
  */
 public class DungeonControllerLoader extends DungeonLoader {
 
-    private List<ImageView> entities;
+    List<ImageView> entities;
 
     //Images
     private Image playerImage;
@@ -34,7 +34,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image bomb_unlitImage;
     private Image keyImage;
     private Image doorImage;
-    private Image dccrImage;
+    //private Image dccrImage;
     
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -52,7 +52,6 @@ public class DungeonControllerLoader extends DungeonLoader {
         bomb_unlitImage = new Image("bomb_unlit.png");
         keyImage = new Image("key.png");
         doorImage = new Image("closed_door.png");
-        dccrImage = new Image("open_door.png");
     }
 
     @Override
@@ -60,7 +59,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         ImageView view = new ImageView(playerImage);
         addEntity(player, view);
     }
-
+    
     @Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
@@ -124,9 +123,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Door door) {
-        ImageView view = new ImageView(dccrImage);
-        addEntity(door, view);
-        view = new ImageView(doorImage);
+        ImageView view = new ImageView(doorImage);
         addEntity(door, view);
     }
     
@@ -134,8 +131,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         trackPosition(entity, view);
         entities.add(view);
     }
-
-    /**
+    
+	/**
      * Set a node in a GridPane to have its position track the position of an
      * entity in the dungeon.
      *

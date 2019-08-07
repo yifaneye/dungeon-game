@@ -2,19 +2,16 @@ package unsw.dungeon;
 
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 public class Goal {
-	
+
 	private boolean reachExit;
-    private int enemyNumber;
-    private int treasureNumber;
-    private int totalSwitch;
-    private int totalEnemies;
-    private int totalTreasure;
-    private Dungeon dungeon;
-    
+	private int enemyNumber;
+	private int treasureNumber;
+	private int totalSwitch;
+	private int totalEnemies;
+	private int totalTreasure;
+	private Dungeon dungeon;
+
 	public Goal(Dungeon dungeon) {
 		this.reachExit = false;
 		this.enemyNumber = 0;
@@ -24,40 +21,39 @@ public class Goal {
 		this.totalTreasure = 0;
 		this.dungeon = dungeon;
 	}
-	
+
 	public boolean switchGoal(Dungeon dungeon) {
 		List<Entity> el = dungeon.getEntities();
 		for (Entity e : el) {
 			if (e instanceof Switch) {
-				if(!e.isSwitchOpen(dungeon)) {
+				if (((Switch) e).isSwitchOpen(dungeon) == false) {
 					return false;
 				}
 			}
 		}
 		return true;
-		
 	}
-	
+
 	public boolean exitGoal() {
 		return reachExit;
 	}
-	
+
 	public boolean enemiesGoal() {
-		if(enemyNumber == totalEnemies) {
+		if (enemyNumber == totalEnemies) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	public boolean treasureGoal() {
-		if(treasureNumber == totalTreasure) {
+		if (treasureNumber == totalTreasure) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	public boolean isReachExit() {
 		return reachExit;
 	}
@@ -109,25 +105,70 @@ public class Goal {
 	public boolean checkGoals() {
 		boolean ret = true;
 		Composite goalCond = DungeonLoader.goalCond;
-		System.out.println(goalCond.nameString());
 		for (Component g : goalCond.children) {
-			String str = g.nameString();
-			System.out.println(str);
-			if (g.nameString().contains("exit")) {
-				if (!exitGoal()) ret = false;
-				if (exitGoal() && str.contains("OR")) ret = true;
+			if (g instanceof Composite) {
+				if (((Composite) g).getName() == "OR") {
+					ret = false;
+					if (g.nameString().contains("exit")) {
+						if (exitGoal())
+							ret = true;
+					}
+					if (g.nameString().contains("enemies")) {
+						if (enemiesGoal())
+							ret = true;
+					}
+					if (g.nameString().contains("boulders")) {
+						if (switchGoal(dungeon))
+							ret = true;
+					}
+					if (g.nameString().contains("treasure")) {
+						if (treasureGoal())
+							ret = true;
+					}
+				} else if (((Composite) g).getName() == "AND") {
+					ret = true;
+					if (g.nameString().contains("exit")) {
+						if (!exitGoal())
+							ret = false;
+					}
+					if (g.nameString().contains("enemies")) {
+						if (!enemiesGoal())
+							ret = false;
+					}
+					if (g.nameString().contains("treasure")) {
+						if (!treasureGoal())
+							ret = false;
+					}
+					if (g.nameString().contains("boulders")) {
+						if (!switchGoal(dungeon))
+							ret = false;
+					}
+				}
 			}
-			if (g.nameString().contains("enemies")) {
-				if (!enemiesGoal()) return false;
-				if (enemiesGoal() && str.contains("OR")) ret = true;
+			if (g instanceof Leaf) {
+				if (((Leaf) g).getName() == "exit") {
+					if (!exitGoal())
+						return false;
+				}
+				if (((Leaf) g).getName() == "enemies") {
+					if (!enemiesGoal())
+						return false;
+				}
+				if (((Leaf) g).getName() == "boulders") {
+					if (!switchGoal(dungeon))
+						return false;
+				}
+				if (((Leaf) g).getName() == "treasure") {
+					if (!treasureGoal())
+						return false;
+				}
 			}
-			if (g.nameString().contains("boulder")) {
-				if (!switchGoal(dungeon)) ret = false;
-				if (switchGoal(dungeon) && str.contains("OR")) ret = true;
-			}
-			if (g.nameString().contains("treasure")) {
-				if (!treasureGoal()) ret = false;
-				if (treasureGoal() && str.contains("OR")) ret = true;
+			if (g instanceof Composite) {
+				if (((Composite) g).getName() == "OR" && ret == true) {
+					return true;
+				} else if (((Composite) g).getName() == "AND" && ret == false) {
+					return false;
+				}
 			}
 		}
 		return ret;

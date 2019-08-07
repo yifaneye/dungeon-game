@@ -12,11 +12,11 @@ public class EnemyMoveAwayTest {
 	public void test() {
 		Dungeon dungeon = new Dungeon(6, 6);
 		
-		Player player = new Player(dungeon, 1, 1);
+		Player player = new Player(dungeon, 1, 1, 0);
 		dungeon.addEntity(player);
 		dungeon.setPlayer(player);
 		PlayerSubject playerSubject = new PlayerSubject();
-		Enemy enemy = new Enemy(dungeon, 2, 2, playerSubject);
+		Enemy enemy = new Enemy(dungeon, 2, 2, playerSubject, 0);
 		dungeon.addEntity(enemy);
 		
 		assertEquals(enemy.getX(), 2);

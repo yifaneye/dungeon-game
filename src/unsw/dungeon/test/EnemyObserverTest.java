@@ -12,7 +12,7 @@ public class EnemyObserverTest {
 	public void test() {
 		Dungeon dungeon = new Dungeon(6, 6);
 		PlayerSubject playerSubject = new PlayerSubject();
-		Enemy enemy = new Enemy(dungeon, 1, 1, playerSubject);
+		Enemy enemy = new Enemy(dungeon, 1, 1, playerSubject, 0);
 		dungeon.addEntity(enemy);
 		
 		// test initial observer

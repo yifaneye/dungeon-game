@@ -1,0 +1,99 @@
+{
+  "width": 13,
+  "height": 13,
+  "entities": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "player"
+    },   
+    {
+      "x": 6,
+      "y": 6,
+      "type": "bomb"
+    },
+    {
+      "x": 5,
+      "y": 11,
+      "type": "boulder"
+    },
+    {
+      "x": 6,
+      "y": 11,
+      "type": "boulder"
+    },
+    {
+      "x": 7,
+      "y": 11,
+      "type": "boulder"
+    },
+    {
+      "x": 0,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 1,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 2,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 3,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 4,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 5,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 6,
+      "y": 12,
+      "type": "exit"
+    },
+    {
+      "x": 7,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 8,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 9,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 10,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 11,
+      "y": 12,
+      "type": "wall"
+    },
+    {
+      "x": 12,
+      "y": 12,
+      "type": "wall"
+    },
+  ],
+  "goal-condition": {
+    "goal": "exit"
+  }
+}

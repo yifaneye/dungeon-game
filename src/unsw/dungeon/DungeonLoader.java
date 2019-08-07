@@ -39,9 +39,8 @@ public abstract class DungeonLoader {
         
         JSONArray jsonEntities = json.getJSONArray("entities");
         for (int i = 0; i < jsonEntities.length(); i++) {
-            loadEntity(dungeon, jsonEntities.getJSONObject(i));
+            loadEntity(dungeon, jsonEntities.getJSONObject(i), i);
         }
-        
         
         JSONObject jsonObject = json.getJSONObject("goal-condition");
         loadGoal(dungeon, jsonObject, goalCond);
@@ -49,8 +48,10 @@ public abstract class DungeonLoader {
         
         return dungeon;
     }
-
-    private void loadEntity(Dungeon dungeon, JSONObject json) {
+    /**
+	 * 
+	 */
+    private void loadEntity(Dungeon dungeon, JSONObject json, int num) {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
@@ -58,45 +59,45 @@ public abstract class DungeonLoader {
         Entity entity = null;
         switch (type) {
         case "player":
-            Player player = new Player(dungeon, x, y);
+    		Player player = new Player(dungeon, x, y, num);
             dungeon.setPlayer(player);
             onLoad(player);
             entity = player;
             break;
         case "wall":
-            Wall wall = new Wall(x, y);
+            Wall wall = new Wall(x, y, num);
             onLoad(wall);
             entity = wall;
             break;
         case "boulder":
-            Boulder boulder = new Boulder(x, y);
+            Boulder boulder = new Boulder(x, y, num);
             onLoad(boulder);
             entity = boulder;
             break;
         case "switch":
-            Switch switch1 = new Switch(x, y);
+            Switch switch1 = new Switch(x, y, num);
             dungeon.setTotalSwitch(dungeon.getTotalSwitch() + 1);
             onLoad(switch1);
             entity = switch1;
             break;
         case "treasure":
-            Treasure treasure = new Treasure(x, y);
+            Treasure treasure = new Treasure(x, y, num);
             dungeon.setTotalTreasure(dungeon.getTotalTreasure() + 1);
             onLoad(treasure);
             entity = treasure;
             break;
         case "sword":
-            Sword sword = new Sword(x, y);
+            Sword sword = new Sword(x, y, num);
             onLoad(sword);
             entity = sword;
             break;
         case "exit":
-            Exit exit = new Exit(x, y);
+            Exit exit = new Exit(x, y, num);
             onLoad(exit);
             entity = exit;
             break;
         case "enemy":
-            Enemy enemy = new Enemy(dungeon, x, y, dungeon.getPlayersubject());
+            Enemy enemy = new Enemy(dungeon, x, y, dungeon.getPlayersubject(), num);
             onLoad(enemy);
             Timer timer = new Timer();
         	timer.schedule(enemy.getEnemyMove(), 0, 750);
@@ -104,31 +105,33 @@ public abstract class DungeonLoader {
             entity = enemy;
             break;
         case "bomb":
-            Bomb bomb = new Bomb(x, y);
+            Bomb bomb = new Bomb(x, y, num);
             onLoad(bomb);
             entity = bomb;
             break;
         case "invincibility":
-        	Invincibility invincibility = new Invincibility(x, y);
+        	Invincibility invincibility = new Invincibility(x, y, num);
             onLoad(invincibility);
             entity = invincibility;
             break;
         case "key":
         	id = json.getInt("id");
-        	Key key = new Key(x, y, id);
+        	Key key = new Key(x, y, id, num);
             onLoad(key);
             entity = key;
             break;
         case "door":
             id = json.getInt("id");
-        	Door door = new Door(x, y, id);
+        	Door door = new Door(x, y, id, dungeon, num);
             onLoad(door);
             entity = door;
             break;
-    	}
+        }
         dungeon.addEntity(entity);
     }
-    
+    /**
+	 * 
+	 */
     private void loadGoal(Dungeon dungeon, JSONObject json, Composite composite) {
         Leaf exitGoal = new Leaf("exit");
         Leaf enemiesGoal = new Leaf("enemies");
@@ -166,31 +169,57 @@ public abstract class DungeonLoader {
         	break;
         }
     }
-
+    /**
+	 * 
+	 */
     public abstract void onLoad(Entity player);
-
+    /**
+	 * 
+	 */
     public abstract void onLoad(Wall wall);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Boulder boulder);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Switch switch1);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Treasure treasure);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Sword sword);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Exit exit);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Enemy enemy);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Invincibility invincibility);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Bomb bomb);
-
+    /**
+	 * 
+	 */
     public abstract void onLoad(Key key);
-    
+    /**
+	 * 
+	 */
     public abstract void onLoad(Door door);
-    
+    /**
+	 * 
+	 */
     public Composite getGoalCond() {
 		return goalCond;
 	}

@@ -18,11 +18,11 @@ public class PlayerMoveTest {
 	@Test
 	public void test() {
 		Dungeon dungeon = new Dungeon(6, 6);
-		Player player = new Player(dungeon, 1, 1);
+		Player player = new Player(dungeon, 1, 1, 0);
 		dungeon.addEntity(player);
 
-		Boulder boulder12 = new Boulder(1, 2);
-		Boulder boulder21 = new Boulder(2, 1);
+		Boulder boulder12 = new Boulder(1, 2, 0);
+		Boulder boulder21 = new Boulder(2, 1, 0);
 		dungeon.addEntity(boulder21);
 		Boulder ret1 = player.hasBoulder(2, 1);
 
@@ -38,7 +38,7 @@ public class PlayerMoveTest {
 		assertEquals(player.getX(), 2);
 
 		// player intends to move down - blocked by boulder
-		Boulder boulder41 = new Boulder(4, 1);
+		Boulder boulder41 = new Boulder(4, 1, 0);
 		dungeon.addEntity(boulder41);
 		ret2 = player.playerCanMove(1, 4);
 		assertEquals(ret2, true);

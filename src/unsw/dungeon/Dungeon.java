@@ -3,6 +3,9 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -42,7 +45,6 @@ public class Dungeon {
 	}
 	
 	public void updatePlayerSubject() {
-		System.out.println("Update\n");
 		playersubject.setXY(player.getX(), player.getY());
 		if (player.hasInvincibilityMoves > 0) {
 			playersubject.setHasInvincibilityMoves(player.hasInvincibilityMoves);
@@ -55,20 +57,21 @@ public class Dungeon {
 		this.dc = dc;
 	}
 	
+	// set bottom line display
 	public void setSwordhitDisplay(int n) {
-		this.dc.setText_sword(Integer.toString(n));
+		if (dc != null) this.dc.setText_sword(Integer.toString(n));
 	}
 	
 	public void setInvincibleDisplay(int n) {
-		this.dc.setText_invincibility(Integer.toString(n));
+		if (dc != null) this.dc.setText_invincibility(Integer.toString(n));
 	}
 	
 	public void setBombDisplay(int n) {
-		this.dc.setText_bomb(Integer.toString(n));
+		if (dc != null) this.dc.setText_bomb(Integer.toString(n));
 	}
 	
 	public void setKeyIDDisplay(int n) {
-		this.dc.setText_key((Integer.toString(n)));
+		if (dc != null) this.dc.setText_key((Integer.toString(n)));
 	}
 	
 	// getter & setter
@@ -147,5 +150,17 @@ public class Dungeon {
 	public void setDc(DungeonController dc) {
 		this.dc = dc;
 	}
-
+	
+	public void changeImage(int index, Image image) {
+		dc.changeImage(index, image);
+	}
+	
+	public void addImage(Image image, int x, int y){
+		dc.addSquare(new ImageView(image), x, y);
+	}
+	
+	public boolean checkCompletion() {
+		return goal.checkGoals();
+	}
+	
 }
